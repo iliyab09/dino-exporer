@@ -1,36 +1,65 @@
+/* Chunky button per DESIGN.md "Buttons". Colors come from theme.css variables. */
 .big-button {
-  --bb-color: var(--color-primary, #2bb673);
+  --bb-fill: var(--color-primary);
+  --bb-edge: var(--color-primary-dark);
+  --bb-text: var(--color-ink);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--space-3, 16px);
-  min-width: var(--tap-min, 64px);
-  min-height: var(--tap-min, 64px);
-  padding: var(--space-2, 8px) var(--space-4, 24px);
-  border: var(--border-width, 4px) solid var(--color-ink, #2d2a3e);
-  border-radius: var(--radius, 24px);
-  background: var(--bb-color);
-  color: #fff;
-  font-family: var(--font-display, system-ui, sans-serif);
-  font-size: var(--text-lg, 1.75rem);
+  gap: var(--space-3);
+  min-width: var(--tap-min);
+  min-height: var(--tap-min);
+  padding: var(--space-2) var(--space-4);
+  border: var(--border-width) solid var(--color-ink);
+  border-radius: var(--radius);
+  background: var(--bb-fill);
+  color: var(--bb-text);
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
   font-weight: 800;
   line-height: 1;
-  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.25);
-  box-shadow: 0 6px 0 var(--color-ink, #2d2a3e);
+  box-shadow: 0 6px 0 var(--bb-edge);
   cursor: pointer;
   user-select: none;
+  -webkit-user-select: none;
   touch-action: manipulation;
-  transition: transform var(--duration-fast, 120ms) ease,
-    box-shadow var(--duration-fast, 120ms) ease;
+  transition: transform var(--duration-fast) ease, box-shadow var(--duration-fast) ease;
+}
+
+.big-button--secondary {
+  --bb-fill: var(--color-sky);
+  --bb-edge: var(--color-sky-dark);
+}
+
+.big-button--accent {
+  --bb-fill: var(--color-accent);
+  --bb-edge: var(--color-accent-dark);
+}
+
+.big-button--berry {
+  --bb-fill: var(--color-berry);
+  --bb-edge: var(--color-ink);
+}
+
+.big-button--sun {
+  --bb-fill: var(--color-sun);
+  --bb-edge: var(--color-accent-dark);
+}
+
+.big-button--round {
+  width: var(--tap-min);
+  height: var(--tap-min);
+  padding: 0;
+  border-radius: var(--radius-pill);
 }
 
 .big-button:active:not(:disabled) {
-  transform: translateY(5px);
-  box-shadow: 0 1px 0 var(--color-ink, #2d2a3e);
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 var(--bb-edge);
 }
 
 .big-button:focus-visible {
-  outline: 4px solid var(--color-sun, #ffd23f);
+  outline: 4px solid var(--color-accent);
   outline-offset: 3px;
 }
 
@@ -40,13 +69,19 @@
 }
 
 .big-button--lg {
-  min-height: var(--tap-big, 88px);
-  min-width: var(--tap-big, 88px);
-  padding: var(--space-3, 16px) var(--space-5, 32px);
-  font-size: var(--text-xl, 2.5rem);
+  min-height: var(--tap-big);
+  min-width: var(--tap-big);
+  padding: var(--space-3) var(--space-5);
+  font-size: var(--text-xl);
+}
+
+.big-button--lg.big-button--round {
+  width: var(--tap-big);
+  height: var(--tap-big);
+  padding: 0;
 }
 
 .big-button__emoji {
-  font-size: 1.4em;
+  font-size: 1.3em;
   line-height: 1;
 }

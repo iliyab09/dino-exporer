@@ -1,0 +1,51 @@
+/* App-wide layout. Colors, type and sizes come from src/styles/theme.css. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  overscroll-behavior-y: none;
+}
+
+#root {
+  min-height: 100svh;
+}
+
+button {
+  font: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+img {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+.screen {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  width: 100%;
+  max-width: 960px;
+  min-height: 100svh;
+  margin: 0 auto;
+  padding: var(--space-3);
+  padding-top: max(var(--space-3), env(safe-area-inset-top));
+  padding-bottom: max(var(--space-3), env(safe-area-inset-bottom));
+  animation: screen-in var(--duration-med) ease-out;
+}
+
+@media (min-width: 600px) {
+  .screen {
+    padding-inline: var(--space-5);
+  }
+}
+
+@keyframes screen-in {
+  from { opacity: 0; transform: translateY(12px); }
+}

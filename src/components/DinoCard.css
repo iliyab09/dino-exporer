@@ -1,83 +1,117 @@
+/* Dino card per DESIGN.md "Dino card". */
 .dino-card {
-  --dino-color: var(--color-primary, #2bb673);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-2, 8px);
+  --dino-color: var(--color-primary);
+  position: relative;
   width: 100%;
-  min-height: 160px;
-  padding: var(--space-3, 16px) var(--space-2, 8px);
-  border: var(--border-width, 4px) solid var(--color-ink, #2d2a3e);
-  border-radius: var(--radius, 24px);
-  background: color-mix(in srgb, var(--dino-color) 28%, var(--color-surface, #fff));
-  box-shadow: 0 6px 0 var(--color-ink, #2d2a3e);
-  color: var(--color-ink, #2d2a3e);
-  font-family: var(--font-display, system-ui, sans-serif);
-  cursor: pointer;
-  touch-action: manipulation;
-  transition: transform var(--duration-fast, 120ms) ease,
-    box-shadow var(--duration-fast, 120ms) ease;
 }
 
-.dino-card:disabled {
+.dino-card__main {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+  border: var(--border-width) solid var(--color-ink);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform var(--duration-fast) var(--ease-bounce),
+    box-shadow var(--duration-fast) ease;
+}
+
+.dino-card__main:disabled {
   cursor: default;
 }
 
-.dino-card:active:not(:disabled) {
-  transform: translateY(5px);
-  box-shadow: 0 1px 0 var(--color-ink, #2d2a3e);
+.dino-card__main:active:not(:disabled) {
+  transform: scale(0.95);
 }
 
-.dino-card:focus-visible {
-  outline: 4px solid var(--color-sun, #ffd23f);
+.dino-card__main:focus-visible {
+  outline: 4px solid var(--color-accent);
   outline-offset: 3px;
 }
 
+.dino-card__panel {
+  display: block;
+  aspect-ratio: 1 / 0.85;
+  padding: 8%;
+  background: color-mix(in srgb, var(--dino-color) 35%, var(--color-surface));
+}
+
 .dino-card__art {
+  display: block;
   width: 100%;
-  max-width: 140px;
-  aspect-ratio: 1;
+  height: 100%;
   object-fit: contain;
   pointer-events: none;
 }
 
-.dino-card--lg .dino-card__art {
-  max-width: 220px;
-}
-
 .dino-card__name {
-  font-size: var(--text-md, 1.25rem);
+  display: block;
+  min-height: var(--tap-min);
+  padding: var(--space-3) var(--space-2);
+  font-size: var(--text-md);
   font-weight: 800;
   line-height: 1.1;
   text-align: center;
-  overflow-wrap: anywhere;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.dino-card--correct {
-  background: var(--color-success-bg, #d8f5e5);
-  border-color: var(--color-success, #2bb673);
-  animation: dino-card-pop var(--duration-med, 260ms) var(--ease-bounce, ease-out);
+.dino-card--lg .dino-card__name {
+  font-size: var(--text-lg);
 }
 
-.dino-card--wrong {
-  background: var(--color-oops-bg, #ffe3e3);
-  border-color: var(--color-oops, #ff6b6b);
-  animation: dino-card-shake 300ms ease;
+/* Same box as the art panel, so the speaker can sit on its bottom-right corner. */
+.dino-card__speak-anchor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  aspect-ratio: 1 / 0.85;
+  pointer-events: none;
+}
+
+.dino-card__speak {
+  position: absolute;
+  right: calc(-1 * var(--space-2));
+  bottom: calc(-1 * var(--space-3));
+  pointer-events: auto;
+}
+
+.dino-card--correct .dino-card__main {
+  background: var(--color-success-bg);
+  border-color: var(--color-success);
+  animation: dino-card-pop var(--duration-med) var(--ease-bounce);
+}
+
+.dino-card--wrong .dino-card__main {
+  background: var(--color-oops-bg);
+  border-color: var(--color-oops);
+  animation: dino-card-wobble 360ms ease;
 }
 
 @keyframes dino-card-pop {
   50% { transform: scale(1.08); }
 }
 
-@keyframes dino-card-shake {
-  25% { transform: translateX(-8px); }
-  75% { transform: translateX(8px); }
+@keyframes dino-card-wobble {
+  16% { transform: rotate(-4deg); }
+  33% { transform: rotate(4deg); }
+  50% { transform: rotate(-4deg); }
+  66% { transform: rotate(4deg); }
+  83% { transform: rotate(-4deg); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .dino-card--correct,
-  .dino-card--wrong {
+  .dino-card--correct .dino-card__main,
+  .dino-card--wrong .dino-card__main {
     animation: none;
   }
 }

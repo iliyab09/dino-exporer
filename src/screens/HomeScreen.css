@@ -1,0 +1,128 @@
+.home {
+  gap: var(--space-4);
+}
+
+/* Picture-book landscape: sky, sun, hill, a dino peeking over the top. */
+.home__scene {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  min-height: 300px;
+  padding-top: var(--space-4);
+  border: var(--border-width) solid var(--color-ink);
+  border-radius: var(--radius);
+  background: var(--color-sky);
+  box-shadow: var(--shadow-card);
+}
+
+.home__sun {
+  position: absolute;
+  top: calc(-1 * var(--space-5));
+  right: calc(-1 * var(--space-5));
+  width: 130px;
+  height: 130px;
+  border: var(--border-width) solid var(--color-ink);
+  border-radius: 50%;
+  background: var(--color-sun);
+}
+
+.home__title {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 100%;
+  padding: 0 var(--space-3);
+  border: 0;
+  background: none;
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 11vw, 4.5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  color: var(--color-surface);
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+/* Each letter is a little toy block, tilted a different way. */
+.home__letter {
+  display: inline-block;
+  transform: rotate(var(--tilt)) translateY(var(--lift));
+  paint-order: stroke fill;
+  -webkit-text-stroke: 8px var(--color-ink);
+  text-shadow: 0 5px 0 var(--color-ink);
+}
+
+.home__title:active .home__letter {
+  animation: home-letter-hop 420ms var(--ease-bounce);
+  animation-delay: calc(var(--i) * 30ms);
+}
+
+.home__gap {
+  width: 0.35em;
+}
+
+.home__hero {
+  position: relative;
+  z-index: 1;
+  width: min(62%, 240px);
+  aspect-ratio: 1;
+  margin-top: var(--space-2);
+  margin-bottom: -18%;
+  object-fit: contain;
+  animation: home-peek 900ms var(--ease-bounce) 200ms both;
+}
+
+.home__hill {
+  position: relative;
+  z-index: 1;
+  width: 140%;
+  height: 90px;
+  margin-bottom: -40px;
+  border-top: var(--border-width) solid var(--color-ink);
+  border-radius: 50% 50% 0 0;
+  background: var(--color-primary);
+}
+
+.home__actions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+}
+
+.home__actions .big-button {
+  width: 100%;
+}
+
+.home__footer {
+  display: flex;
+  justify-content: center;
+}
+
+@media (min-width: 600px) {
+  .home__actions {
+    grid-template-columns: 1fr 1fr;
+  }
+  .home__scene {
+    min-height: 360px;
+  }
+}
+
+@keyframes home-peek {
+  from { transform: translateY(45%); }
+  to { transform: translateY(0); }
+}
+
+@keyframes home-letter-hop {
+  50% { translate: 0 -14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home__hero,
+  .home__title:active .home__letter {
+    animation: none;
+  }
+}

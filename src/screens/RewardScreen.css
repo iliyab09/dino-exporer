@@ -1,0 +1,65 @@
+.reward {
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-6);
+  overflow: hidden;
+}
+
+.reward__stars {
+  position: relative;
+  z-index: 1;
+  padding: var(--space-5) var(--space-4);
+  border: var(--border-width) solid var(--color-ink);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.reward__stars:focus-visible {
+  outline: 4px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+.reward__actions {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: var(--space-4);
+}
+
+.reward__confetti {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.reward__bit {
+  position: absolute;
+  top: -24px;
+  width: 12px;
+  height: 18px;
+  border: 2px solid var(--color-ink);
+  border-radius: 3px;
+  animation-name: reward-fall;
+  animation-timing-function: linear;
+  animation-iteration-count: 2;
+  animation-fill-mode: both;
+}
+
+.reward__bit--round {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+}
+
+@keyframes reward-fall {
+  from { transform: translate(0, 0) rotate(0); }
+  to { transform: translate(var(--drift), 110vh) rotate(var(--spin)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reward__confetti { display: none; }
+}
