@@ -1,6 +1,7 @@
 // Game registry. The app shell renders the Play menu from this list.
 import type { ComponentType } from 'react';
 import type { GameProps } from '../data/types';
+import MemoryMatchGame from './memory-match/MemoryMatchGame';
 import NameQuizGame from './name-quiz/NameQuizGame';
 
 export interface GameEntry {
@@ -15,4 +16,5 @@ export interface GameEntry {
 
 export const GAMES: GameEntry[] = [
   { id: 'name-quiz', title: 'Name Quiz', emoji: '❓', component: NameQuizGame, minDinos: 3 },
+  { id: 'memory-match', title: 'Memory Match', emoji: '🃏', component: MemoryMatchGame, minDinos: 3 },
 ];
