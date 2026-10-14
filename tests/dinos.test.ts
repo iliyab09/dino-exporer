@@ -34,4 +34,10 @@ describe.skipIf(DINOS.length === 0)('dataset smoke test (src/data/dinos.ts)', ()
   it.each(DINOS.map((d) => [d.id, d] as const))('%s: pronunciation chunks match syllables 1:1', (_id, d) => {
     expect(d.pronunciation.split(/[-\s]+/)).toHaveLength(d.syllables.length);
   });
+
+  // TTS spells out tiny or vowel-less chunks letter by letter (CONTENT.md rule).
+  it.each(DINOS.map((d) => [d.id, d] as const))('%s: every pronunciation chunk is 2+ letters with a vowel', (_id, d) => {
+    const bad = d.pronunciation.split(/[-\s]+/).filter((c) => c.length < 2 || !/[aeiouy]/i.test(c));
+    expect(bad).toEqual([]);
+  });
 });

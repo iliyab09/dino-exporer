@@ -43,21 +43,51 @@ export function playPop() {
   tone(660, 0, 0.08, 'sine', 0.1);
 }
 
-/** Eggshell crack: a short filtered noise burst. Louder for bigger cracks (0..1). */
-export function playCrack(strength = 0.5) {
+function noise(start: number, dur: number, freq: number, vol: number, type: BiquadFilterType = 'bandpass') {
   const ac = audio();
   if (!ac) return;
-  const len = Math.floor(ac.sampleRate * 0.12);
+  const len = Math.floor(ac.sampleRate * dur);
   const buf = ac.createBuffer(1, len, ac.sampleRate);
   const data = buf.getChannelData(0);
   for (let i = 0; i < len; i++) data[i] = (Math.random() * 2 - 1) * (1 - i / len) ** 3;
   const src = ac.createBufferSource();
   src.buffer = buf;
   const filter = ac.createBiquadFilter();
-  filter.type = 'bandpass';
-  filter.frequency.value = 1800;
+  filter.type = type;
+  filter.frequency.value = freq;
   const gain = ac.createGain();
-  gain.gain.value = 0.25 + 0.35 * strength;
+  gain.gain.value = vol;
   src.connect(filter).connect(gain).connect(ac.destination);
-  src.start();
+  src.start(ac.currentTime + start);
+}
+
+/** Leafy "crunch crunch crunch" for plant-eaters. */
+export function playCrunch() {
+  for (let i = 0; i < 3; i++) noise(i * 0.16, 0.1, 3000, 0.45, 'highpass');
+}
+
+/** Two low "chomp" bites for meat-eaters. */
+export function playChomp() {
+  const ac = audio();
+  if (!ac) return;
+  for (let i = 0; i < 2; i++) {
+    const t = ac.currentTime + i * 0.22;
+    const osc = ac.createOscillator();
+    const gain = ac.createGain();
+    osc.type = 'square';
+    osc.frequency.setValueAtTime(180, t);
+    osc.frequency.exponentialRampToValueAtTime(60, t + 0.12);
+    gain.gain.setValueAtTime(0.0001, t);
+    gain.gain.exponentialRampToValueAtTime(0.12, t + 0.01);
+    gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.14);
+    osc.connect(gain).connect(ac.destination);
+    osc.start(t);
+    osc.stop(t + 0.16);
+    noise(i * 0.22, 0.06, 900, 0.3);
+  }
+}
+
+/** Eggshell crack: a short filtered noise burst. Louder for bigger cracks (0..1). */
+export function playCrack(strength = 0.5) {
+  noise(0, 0.12, 1800, 0.25 + 0.35 * strength);
 }

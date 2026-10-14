@@ -29,18 +29,23 @@ function makeConfetti(stars: number) {
 
 export function RewardScreen({
   stars,
+  message,
   onAgain,
   onDone,
 }: {
   stars: 1 | 2 | 3;
+  /** Game-specific praise (e.g. no-fail games); replaces the default star line. */
+  message?: string;
   onAgain: () => void;
   onDone: () => void;
 }) {
+  const praise = message || PHRASES.stars[stars];
+
   useEffect(() => {
     playWin();
-    const t = window.setTimeout(() => speak(PHRASES.stars[stars]), 700);
+    const t = window.setTimeout(() => speak(praise), 700);
     return () => window.clearTimeout(t);
-  }, [stars]);
+  }, [praise]);
 
   const [confetti] = useState(() => makeConfetti(stars));
 
@@ -65,13 +70,10 @@ export function RewardScreen({
         ))}
       </div>
 
-      <button
-        type="button"
-        className="reward__stars"
-        aria-label={PHRASES.stars[stars]}
-        onClick={() => speak(PHRASES.stars[stars])}
-      >
-        <Stars count={stars} size="lg" pop />
+      <h1 className="sr-only">{praise}</h1>
+      <button type="button" className="reward__stars" aria-label={praise} onClick={() => speak(praise)}>
+        <Stars count={stars} size="lg" pop showEmpty={!message} />
+        {message && <span className="reward__message">{message}</span>}
       </button>
 
       <nav className="reward__actions">

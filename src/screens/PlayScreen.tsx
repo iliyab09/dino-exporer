@@ -20,6 +20,7 @@ export function PlayScreen({
 }) {
   return (
     <main className="screen play">
+      <h1 className="sr-only">Games</h1>
       <TopBar onBack={onBack}>
         <span aria-hidden="true">🎮</span>
       </TopBar>

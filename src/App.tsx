@@ -105,9 +105,9 @@ export default function App() {
           game={game}
           dinos={DINOS}
           onExit={back}
-          onFinish={({ stars, correct, total }) => {
+          onFinish={({ stars, correct, total, message }) => {
             setProgress(recordStars(game.id, stars));
-            go({ name: 'reward', gameId: game.id, stars, correct, total }, true);
+            go({ name: 'reward', gameId: game.id, stars, correct, total, message }, true);
           }}
         />
       );
@@ -117,6 +117,7 @@ export default function App() {
       return (
         <RewardScreen
           stars={route.stars}
+          message={route.message}
           onAgain={() => go({ name: 'game', id: route.gameId }, true)}
           onDone={back}
         />

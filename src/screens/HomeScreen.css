@@ -28,6 +28,14 @@
   background: var(--color-sun);
 }
 
+.home__heading {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  max-width: 100%;
+  font-size: inherit;
+}
+
 .home__title {
   position: relative;
   z-index: 2;
