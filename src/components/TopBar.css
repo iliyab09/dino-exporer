@@ -1,8 +1,9 @@
 .top-bar {
+  align-self: stretch;
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  padding: var(--space-3);
+  padding: var(--space-2) 0;
 }
 
 .top-bar__title {
