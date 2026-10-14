@@ -70,16 +70,16 @@
 
 /* Kids' tablets are often on dark mode; we keep the bright look on purpose. */
 
-html,
+html {
+  background: var(--color-bg);
+}
+
 body {
   background: var(--color-bg);
   color: var(--color-ink);
   font-family: var(--font-body);
-  -webkit-tap-highlight-color: transparent;
-}
-
-body {
   font-size: 1.125rem; /* 18px body text; rem tokens stay 16px-based */
+  -webkit-tap-highlight-color: transparent;
 }
 
 h1,
