@@ -11,6 +11,7 @@ const LINES = {
   intro: 'Tap the egg to help it hatch!',
   keepGoing: 'Keep tapping! Crack, crack!',
   hatched: (name: string) => `It's a baby ${name}!`,
+  result: (n: number) => (n === 1 ? 'You hatched a baby dinosaur!' : `You hatched ${n} baby dinosaurs!`),
 };
 
 const IDLE_REPROMPT_MS = 6000;
@@ -74,7 +75,7 @@ export default function EggHatchGame({ dinos, speak, onFinish, onExit }: GamePro
 
   // Leaving after at least one hatch counts as a finished play for the shell.
   const back = () => {
-    if (hatchCount > 0) onFinish({ stars: 1, correct: hatchCount, total: hatchCount });
+    if (hatchCount > 0) onFinish({ stars: 1, correct: hatchCount, total: hatchCount, message: LINES.result(hatchCount) });
     else onExit();
   };
 
