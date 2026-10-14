@@ -42,6 +42,11 @@ export const PHRASES = {
   eggHatched: (name: string) => `It's a baby ${name}!`,
   hatchAnother: 'Hatch another egg!',
 
+  // Dino Snacks (sort plant-eaters and meat-eaters; PHRASES.diet is spoken on a right answer)
+  snackIntro: 'Help the dinos find their snacks!',
+  snackQuestion: (name: string) => `${name}! Did it eat plants or meat?`,
+  snackWrong: 'Hmm, not that one. Try the other snack!',
+
   // Any game
   tryAgain: 'Try again!',
   allFound: 'You found them all!',
