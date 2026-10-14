@@ -5,7 +5,7 @@ export const DINOS: Dino[] = [
   {
     id: 'tyrannosaurus-rex',
     name: 'Tyrannosaurus rex',
-    pronunciation: 'tie-RAN-uh-SORE-us REX',
+    pronunciation: 'tie-RAN-oh-SORE-us REX',
     syllables: ['Ty', 'ran', 'no', 'saur', 'us', 'rex'],
     meaning: 'tyrant lizard king',
     diet: 'carnivore',
@@ -19,7 +19,7 @@ export const DINOS: Dino[] = [
   {
     id: 'triceratops',
     name: 'Triceratops',
-    pronunciation: 'try-SAIR-uh-tops',
+    pronunciation: 'try-SARE-uh-tops',
     syllables: ['Tri', 'cer', 'a', 'tops'],
     meaning: 'three-horned face',
     diet: 'herbivore',
@@ -33,7 +33,7 @@ export const DINOS: Dino[] = [
   {
     id: 'stegosaurus',
     name: 'Stegosaurus',
-    pronunciation: 'STEG-uh-SORE-us',
+    pronunciation: 'STEG-oh-SORE-us',
     syllables: ['Steg', 'o', 'saur', 'us'],
     meaning: 'roof lizard',
     diet: 'herbivore',
@@ -47,8 +47,8 @@ export const DINOS: Dino[] = [
   {
     id: 'brachiosaurus',
     name: 'Brachiosaurus',
-    pronunciation: 'BRAK-ee-uh-SORE-us',
-    syllables: ['Brach', 'i', 'o', 'saur', 'us'],
+    pronunciation: 'BRACK-key-oh-SORE-us',
+    syllables: ['Bra', 'chi', 'o', 'saur', 'us'],
     meaning: 'arm lizard',
     diet: 'herbivore',
     period: 'Jurassic',
@@ -61,7 +61,7 @@ export const DINOS: Dino[] = [
   {
     id: 'velociraptor',
     name: 'Velociraptor',
-    pronunciation: 'veh-LOSS-ih-rap-tor',
+    pronunciation: 'vuh-LOSS-uh-rap-tor',
     syllables: ['Ve', 'loc', 'i', 'rap', 'tor'],
     meaning: 'swift thief',
     diet: 'carnivore',
@@ -75,7 +75,7 @@ export const DINOS: Dino[] = [
   {
     id: 'pteranodon',
     name: 'Pteranodon',
-    pronunciation: 'teh-RAN-uh-don',
+    pronunciation: 'tuh-RAN-uh-don',
     syllables: ['Pter', 'an', 'o', 'don'],
     meaning: 'wing with no teeth',
     diet: 'carnivore',
@@ -90,8 +90,8 @@ export const DINOS: Dino[] = [
   {
     id: 'spinosaurus',
     name: 'Spinosaurus',
-    pronunciation: 'SPY-nuh-SORE-us',
-    syllables: ['Spin', 'o', 'saur', 'us'],
+    pronunciation: 'SPY-no-SORE-us',
+    syllables: ['Spi', 'no', 'saur', 'us'],
     meaning: 'spine lizard',
     diet: 'carnivore',
     period: 'Cretaceous',
@@ -104,8 +104,8 @@ export const DINOS: Dino[] = [
   {
     id: 'ankylosaurus',
     name: 'Ankylosaurus',
-    pronunciation: 'ang-KY-luh-SORE-us',
-    syllables: ['An', 'ky', 'lo', 'saur', 'us'],
+    pronunciation: 'an-KYLE-oh-SORE-us',
+    syllables: ['An', 'kyl', 'o', 'saur', 'us'],
     meaning: 'fused lizard',
     diet: 'herbivore',
     period: 'Cretaceous',
@@ -118,7 +118,7 @@ export const DINOS: Dino[] = [
   {
     id: 'diplodocus',
     name: 'Diplodocus',
-    pronunciation: 'dih-PLOD-uh-kus',
+    pronunciation: 'dip-LOD-uh-kuss',
     syllables: ['Dip', 'lod', 'o', 'cus'],
     meaning: 'double beam',
     diet: 'herbivore',
@@ -132,8 +132,8 @@ export const DINOS: Dino[] = [
   {
     id: 'parasaurolophus',
     name: 'Parasaurolophus',
-    pronunciation: 'PAIR-uh-sore-OL-uh-fus',
-    syllables: ['Par', 'a', 'saur', 'o', 'lo', 'phus'],
+    pronunciation: 'PAIR-uh-sore-ROLL-uh-fuss',
+    syllables: ['Par', 'a', 'sau', 'rol', 'o', 'phus'],
     meaning: 'near crested lizard',
     diet: 'herbivore',
     period: 'Cretaceous',
@@ -146,7 +146,7 @@ export const DINOS: Dino[] = [
   {
     id: 'allosaurus',
     name: 'Allosaurus',
-    pronunciation: 'AL-uh-SORE-us',
+    pronunciation: 'AL-oh-SORE-us',
     syllables: ['Al', 'lo', 'saur', 'us'],
     meaning: 'different lizard',
     diet: 'carnivore',
@@ -160,8 +160,8 @@ export const DINOS: Dino[] = [
   {
     id: 'pachycephalosaurus',
     name: 'Pachycephalosaurus',
-    pronunciation: 'PAK-ee-SEF-uh-luh-SORE-us',
-    syllables: ['Pach', 'y', 'ceph', 'a', 'lo', 'saur', 'us'],
+    pronunciation: 'PACK-key-SEF-uh-low-SORE-us',
+    syllables: ['Pa', 'chy', 'ceph', 'a', 'lo', 'saur', 'us'],
     meaning: 'thick-headed lizard',
     diet: 'herbivore',
     period: 'Cretaceous',
@@ -174,8 +174,8 @@ export const DINOS: Dino[] = [
   {
     id: 'iguanodon',
     name: 'Iguanodon',
-    pronunciation: 'ih-GWAN-uh-don',
-    syllables: ['I', 'guan', 'o', 'don'],
+    pronunciation: 'ig-WAN-oh-don',
+    syllables: ['Ig', 'uan', 'o', 'don'],
     meaning: 'iguana tooth',
     diet: 'herbivore',
     period: 'Cretaceous',
@@ -188,7 +188,7 @@ export const DINOS: Dino[] = [
   {
     id: 'dilophosaurus',
     name: 'Dilophosaurus',
-    pronunciation: 'dy-LOAF-uh-SORE-us',
+    pronunciation: 'dye-LOAF-oh-SORE-us',
     syllables: ['Di', 'loph', 'o', 'saur', 'us'],
     meaning: 'two-crested lizard',
     diet: 'carnivore',
@@ -202,8 +202,8 @@ export const DINOS: Dino[] = [
   {
     id: 'archaeopteryx',
     name: 'Archaeopteryx',
-    pronunciation: 'ar-kee-OP-ter-ix',
-    syllables: ['Ar', 'chae', 'op', 'ter', 'yx'],
+    pronunciation: 'ar-key-OP-tuh-ricks',
+    syllables: ['Ar', 'chae', 'op', 'te', 'ryx'],
     meaning: 'ancient wing',
     diet: 'carnivore',
     period: 'Jurassic',
@@ -216,7 +216,7 @@ export const DINOS: Dino[] = [
   {
     id: 'gallimimus',
     name: 'Gallimimus',
-    pronunciation: 'gal-ih-MY-mus',
+    pronunciation: 'gal-uh-MY-muss',
     syllables: ['Gal', 'li', 'mi', 'mus'],
     meaning: 'chicken mimic',
     diet: 'omnivore',
@@ -230,7 +230,7 @@ export const DINOS: Dino[] = [
   {
     id: 'oviraptor',
     name: 'Oviraptor',
-    pronunciation: 'OH-vih-rap-tor',
+    pronunciation: 'OH-vuh-rap-tor',
     syllables: ['O', 'vi', 'rap', 'tor'],
     meaning: 'egg thief',
     diet: 'omnivore',
@@ -244,7 +244,7 @@ export const DINOS: Dino[] = [
   {
     id: 'coelophysis',
     name: 'Coelophysis',
-    pronunciation: 'SEE-luh-FY-sis',
+    pronunciation: 'SEE-low-FIE-sis',
     syllables: ['Coe', 'lo', 'phy', 'sis'],
     meaning: 'hollow form',
     diet: 'carnivore',
@@ -258,8 +258,8 @@ export const DINOS: Dino[] = [
   {
     id: 'plateosaurus',
     name: 'Plateosaurus',
-    pronunciation: 'PLAT-ee-uh-SORE-us',
-    syllables: ['Plat', 'e', 'o', 'saur', 'us'],
+    pronunciation: 'PLAT-tee-oh-SORE-us',
+    syllables: ['Pla', 'te', 'o', 'saur', 'us'],
     meaning: 'flat lizard',
     diet: 'herbivore',
     period: 'Triassic',
@@ -272,7 +272,7 @@ export const DINOS: Dino[] = [
   {
     id: 'eoraptor',
     name: 'Eoraptor',
-    pronunciation: 'EE-oh-rap-tor',
+    pronunciation: 'EEE-oh-rap-tor',
     syllables: ['E', 'o', 'rap', 'tor'],
     meaning: 'dawn thief',
     diet: 'omnivore',

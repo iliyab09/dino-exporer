@@ -34,7 +34,7 @@ Mix: Triassic 3, Jurassic 6, Cretaceous 11. Herbivore 9, carnivore 8, omnivore 3
 ## Data rules
 
 - `syllables.join('')` equals `name` with spaces removed (case-sensitive). Example: `["Ty","ran","no","saur","us","rex"]` -> "Tyrannosaurus rex".
-- `pronunciation`: lower-case hyphenated sounds, stressed syllable in CAPS ("try-SAIR-uh-tops").
+- `pronunciation`: hyphenated sounds, stressed syllable in CAPS ("try-SARE-uh-tops"). It is not shown on screen: each syllable chip speaks its matching chunk (lower-cased), so chunks are 1:1 with `syllables`, at least 2 letters with a vowel, and real words where possible ("key", "sore", "oh", "us") so no TTS voice spells them out letter by letter. Syllable splits follow the sounds (Bra-chi-o-saur-us = brack-key-oh-sore-us).
 - `funFact`: one sentence, max 90 characters, simple words a 5 year old knows, true.
 - `lengthMeters`: typical adult nose-to-tail length, rounded. Exception: `pteranodon` uses wingspan and sets `sizeKind: 'wingspan'`. Archaeopteryx keeps body length (its wingspan is about the same, ~0.5-0.7 m).
 - `color`: bright and distinct from the other 19 (checked by CIE Lab distance). Cards render a light tint of it with dark ink text, so it does not need to be dark.
