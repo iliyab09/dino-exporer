@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
+import { PHRASES } from '../../data/phrases';
 import type { GameProps } from '../../data/types';
 import DinoImage from '../shared/DinoImage';
 import { playCorrect, playPop } from '../shared/sound';
@@ -20,6 +21,12 @@ export default function MemoryMatchGame({ dinos, speak, onFinish, onExit }: Game
   const pairs = deck.length / 2;
 
   useEffect(() => () => timers.current.forEach((t) => window.clearTimeout(t)), []);
+
+  // Intro once on mount; ref so a new speak identity from the shell doesn't repeat it.
+  const speakRef = useRef(speak);
+  useEffect(() => {
+    speakRef.current(PHRASES.memoryIntro);
+  }, []);
 
   const later = (fn: () => void, ms: number) => {
     timers.current.push(window.setTimeout(fn, ms));
@@ -69,10 +76,10 @@ export default function MemoryMatchGame({ dinos, speak, onFinish, onExit }: Game
     setOpen([]);
     later(playCorrect, 200);
     if (nextMatched.length === pairs) {
-      speak(`${card.dino.name}! You found them all!`);
+      speak(`${PHRASES.memoryMatch(card.dino.name)} ${PHRASES.allFound}`);
       later(() => onFinish({ stars: starsForMoves(nextMoves, pairs), correct: pairs, total: pairs }), FINISH_DELAY_MS);
     } else {
-      speak(`${card.dino.name}! A match!`);
+      speak(PHRASES.memoryMatch(card.dino.name));
     }
   };
 
@@ -101,7 +108,7 @@ export default function MemoryMatchGame({ dinos, speak, onFinish, onExit }: Game
               type="button"
               key={card.key}
               className={classes.join(' ')}
-              aria-label={isUp ? card.dino.name : 'Hidden card'}
+              aria-label={isUp ? card.dino.name : 'Face-down card'}
               style={{ '--dino-color': card.dino.color } as CSSProperties}
               onClick={() => flip(i)}
             >
