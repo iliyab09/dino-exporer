@@ -49,7 +49,7 @@ export const PHRASES = {
   } satisfies Record<1 | 2 | 3, string>,
   playAgain: 'Play again',
   done: 'Done',
-  newSticker:(name: string) => `New sticker! You got the ${name}!`,
+  newSticker: (name: string) => `New sticker! You got the ${name}!`,
   stickerBookIntro: 'Here are all your dino stickers!',
   stickerLocked: 'Play a game to win this sticker!',
 } as const;
