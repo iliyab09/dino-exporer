@@ -1,0 +1,114 @@
+.nq-prompt {
+  position: relative;
+  margin-bottom: var(--space-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  min-height: var(--tap-big);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius);
+  background: var(--color-primary-dark);
+  color: #fff;
+  font-size: clamp(22px, 6vw, var(--text-xl));
+  font-weight: 800;
+  box-shadow: 0 6px 0 var(--color-ink);
+}
+
+/* Speech-bubble tail: the question is "said" by the game, like a picture book. */
+.nq-prompt::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -20px;
+  width: 24px;
+  height: 24px;
+  background: var(--color-primary-dark);
+  border-right: var(--border-width) solid var(--color-ink);
+  border-bottom: var(--border-width) solid var(--color-ink);
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.nq-prompt:active {
+  box-shadow: 0 2px 0 var(--color-ink);
+}
+
+.nq-prompt-icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: var(--tap-min);
+  height: var(--tap-min);
+  border-radius: var(--radius-pill);
+  background: var(--color-sky);
+  font-size: 32px;
+}
+
+.nq-options {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+}
+
+.nq-option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 112px;
+  padding: var(--space-2) var(--space-3) var(--space-2) var(--space-2);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  font-size: clamp(20px, 5.5vw, var(--text-lg));
+  font-weight: 800;
+  text-align: left;
+  box-shadow: var(--shadow-card);
+}
+
+.nq-option:active {
+  box-shadow: 0 2px 0 var(--color-shadow);
+}
+
+.nq-option img {
+  flex: none;
+  box-sizing: border-box;
+  width: 96px;
+  height: 96px;
+  padding: 6%;
+  object-fit: contain;
+  border-radius: var(--radius-sm);
+  background: var(--dino-color);
+  pointer-events: none;
+}
+
+.nq-option-name {
+  overflow-wrap: anywhere;
+}
+
+.nq-option.wrong {
+  background: var(--color-oops-bg);
+  border-color: var(--color-oops);
+  opacity: 0.6;
+}
+
+.nq-option.right {
+  background: var(--color-success-bg);
+  border-color: var(--color-success);
+}
+
+@media (min-width: 640px) {
+  .nq-options {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .nq-option {
+    flex-direction: column;
+    padding: var(--space-3);
+    text-align: center;
+  }
+
+  .nq-option img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+  }
+}
