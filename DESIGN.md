@@ -23,9 +23,7 @@ Bright, flat, friendly. Like a picture book on a sunny day. Chunky shapes, thick
 | `--color-oops` / `-bg` | `#ff6b6b` / `#ffe3e3` | Gentle "try again" |
 | `--color-success-bg` | `#d8f5e5` | Correct answer flash |
 
-Per-dino card color comes from `dino.color` in the data (Rex). These are saturated (white text passes 3:1). Use them two ways:
-- Card border/header strip and name text background: `dino.color` solid, white text.
-- Art panel behind the SVG: a light tint so the outlined art pops: `background: color-mix(in srgb, var(--dino-color) 22%, white)` where `--dino-color` is set inline from `dino.color`.
+Per-dino card color comes from `dino.color` in the data (Rex), a mid/saturated hue. The card's art panel uses a light tint of it so the outlined art pops: `background: color-mix(in srgb, var(--dino-color) 22%, white)` with `--dino-color` set inline from `dino.color`. Text on cards is always `--color-ink`. Each dino's art body uses the same hue family as its `dino.color`, so card and art read as one.
 
 Contrast: white text only on `--color-primary-dark`, `--color-sky-dark`, `--color-accent-dark` or `--color-ink`. On `--color-primary`, `--color-accent`, `--color-sun` use `--color-ink` text.
 
