@@ -1,0 +1,94 @@
+/*
+ * Dino Exporer theme. Owned by Pixel (Designer). See DESIGN.md.
+ * Import once from main.tsx: import './styles/theme.css'
+ * Components should only use these variables, never raw hex values.
+ */
+
+:root {
+  /* ---- Core palette (required by TEAM.md) ---- */
+  --color-bg: #fff8e7;          /* warm cream "sand" */
+  --color-primary: #2bb673;     /* jungle green: main buttons, active tab */
+  --color-accent: #ff8a3d;      /* sunset orange: highlights, stars, "next" */
+
+  /* ---- Supporting palette ---- */
+  --color-primary-dark: #1d8a55;   /* pressed state, button bottom edge */
+  --color-accent-dark: #d9661c;
+  --color-sky: #4cc3f5;            /* secondary buttons, info */
+  --color-sky-dark: #2a9bd0;
+  --color-sun: #ffd23f;            /* stars, rewards, sparkles */
+  --color-berry: #ef5da8;          /* fun pops, sticker book */
+  --color-surface: #ffffff;        /* cards, panels */
+  --color-ink: #2d2a3e;            /* text and art outlines */
+  --color-ink-soft: #6b6880;       /* secondary text */
+  --color-success: #2bb673;
+  --color-success-bg: #d8f5e5;
+  --color-oops: #ff6b6b;           /* gentle "try again", never harsh red */
+  --color-oops-bg: #ffe3e3;
+  --color-shadow: rgba(45, 42, 62, 0.18);
+
+  /* ---- Shape ---- */
+  --radius: 24px;
+  --radius-sm: 14px;
+  --radius-pill: 999px;
+  --border-width: 4px;            /* chunky outline that matches the SVG art */
+
+  /* ---- Typography (system fonts only, no downloads) ---- */
+  --font-display: 'Baloo 2', 'Fredoka', 'Fredoka One', 'Comic Sans MS',
+    'Chalkboard SE', 'Comic Neue', 'Arial Rounded MT Bold', ui-rounded,
+    system-ui, sans-serif;
+  --font-body: ui-rounded, 'Nunito', 'Segoe UI', system-ui, -apple-system,
+    Roboto, sans-serif;
+  --text-sm: 1rem;      /* 16px, captions only */
+  --text-md: 1.25rem;   /* 20px, body */
+  --text-lg: 1.75rem;   /* 28px, button labels */
+  --text-xl: 2.5rem;    /* 40px, dino names */
+  --text-xxl: 3.5rem;   /* 56px, screen titles */
+
+  /* ---- Spacing scale (8px grid) ---- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 32px;
+  --space-6: 48px;
+
+  /* ---- Tap targets ---- */
+  --tap-min: 64px;      /* every tappable thing is at least this in both axes */
+  --tap-big: 88px;      /* primary actions: play, speak, answers */
+
+  /* ---- Depth + motion ---- */
+  --shadow-card: 0 6px 0 var(--color-shadow);
+  --shadow-button: 0 6px 0 var(--color-primary-dark);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --duration-fast: 120ms;
+  --duration-med: 260ms;
+
+  color-scheme: light;
+}
+
+/* Kids' tablets are often on dark mode; we keep the bright look on purpose. */
+
+html,
+body {
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 18px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--color-ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration-med: 0ms;
+  }
+}
