@@ -1,0 +1,8 @@
+.learn__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: var(--space-4) var(--space-3);
+  margin: 0;
+  padding: 0 0 var(--space-5);
+  list-style: none;
+}

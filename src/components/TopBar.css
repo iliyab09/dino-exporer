@@ -1,0 +1,19 @@
+.top-bar {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) 0;
+}
+
+.top-bar__title {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  margin-right: var(--tap-min); /* balance the back button so the title is centered */
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 800;
+}

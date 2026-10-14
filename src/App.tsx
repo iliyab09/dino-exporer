@@ -1,122 +1,125 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { useCallback, useEffect, useState } from 'react';
+import { DINOS, GAMES } from './lib/registry';
+import { loadProgress, recordStars, type Progress } from './lib/progress';
+import { HOME, isHistoryEntry, parentOf, type HistoryEntry, type Route } from './lib/route';
+import { stopSpeaking } from './lib/speech';
+import { DinoScreen } from './screens/DinoScreen';
+import { GameScreen } from './screens/GameScreen';
+import { HomeScreen } from './screens/HomeScreen';
+import { LearnScreen } from './screens/LearnScreen';
+import { PlayScreen } from './screens/PlayScreen';
+import { RewardScreen } from './screens/RewardScreen';
+import './App.css';
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
-
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+function initialEntry(): HistoryEntry {
+  const state: unknown = window.history.state;
+  if (isHistoryEntry(state)) return state;
+  const entry = { route: HOME, depth: 0 };
+  window.history.replaceState(entry, '');
+  return entry;
 }
 
-export default App
+export default function App() {
+  const [entry, setEntry] = useState<HistoryEntry>(initialEntry);
+  const [progress, setProgress] = useState<Progress>(loadProgress);
+  const { route } = entry;
+
+  useEffect(() => {
+    const onPop = (e: PopStateEvent) => {
+      stopSpeaking();
+      setEntry(isHistoryEntry(e.state) ? e.state : { route: HOME, depth: 0 });
+    };
+    window.addEventListener('popstate', onPop);
+    return () => window.removeEventListener('popstate', onPop);
+  }, []);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [route]);
+
+  /** Go to a new screen. `replace` swaps the current history entry instead of adding one. */
+  const go = useCallback(
+    (next: Route, replace = false) => {
+      const nextEntry = { route: next, depth: replace ? entry.depth : entry.depth + 1 };
+      if (replace) window.history.replaceState(nextEntry, '');
+      else window.history.pushState(nextEntry, '');
+      setEntry(nextEntry);
+    },
+    [entry.depth],
+  );
+
+  const back = useCallback(() => {
+    stopSpeaking();
+    if (entry.depth > 0) window.history.back();
+    else go(parentOf(route), true);
+  }, [entry.depth, go, route]);
+
+  switch (route.name) {
+    case 'home':
+      return (
+        <HomeScreen
+          totalStars={progress.totalStars}
+          onLearn={() => go({ name: 'learn' })}
+          onPlay={() => go({ name: 'play' })}
+        />
+      );
+
+    case 'learn':
+      return <LearnScreen dinos={DINOS} onBack={back} onOpen={(id) => go({ name: 'dino', id })} />;
+
+    case 'dino': {
+      const i = DINOS.findIndex((d) => d.id === route.id);
+      if (i < 0) return <LearnScreen dinos={DINOS} onBack={back} onOpen={(id) => go({ name: 'dino', id }, true)} />;
+      return (
+        <DinoScreen
+          dino={DINOS[i]}
+          prev={DINOS[i - 1]}
+          next={DINOS[i + 1]}
+          onBack={back}
+          onOpen={(id) => go({ name: 'dino', id }, true)}
+        />
+      );
+    }
+
+    case 'play':
+      return (
+        <PlayScreen
+          games={GAMES}
+          dinoCount={DINOS.length}
+          best={progress.best}
+          onBack={back}
+          onStart={(id) => go({ name: 'game', id })}
+        />
+      );
+
+    case 'game': {
+      const game = GAMES.find((g) => g.id === route.id);
+      if (!game) {
+        return (
+          <PlayScreen games={GAMES} dinoCount={DINOS.length} best={progress.best} onBack={back} onStart={(id) => go({ name: 'game', id }, true)} />
+        );
+      }
+      return (
+        <GameScreen
+          key={entry.depth /* fresh round on "play again" */}
+          game={game}
+          dinos={DINOS}
+          onExit={back}
+          onFinish={({ stars, correct, total }) => {
+            setProgress(recordStars(game.id, stars));
+            go({ name: 'reward', gameId: game.id, stars, correct, total }, true);
+          }}
+        />
+      );
+    }
+
+    case 'reward':
+      return (
+        <RewardScreen
+          stars={route.stars}
+          onAgain={() => go({ name: 'game', id: route.gameId }, true)}
+          onDone={back}
+        />
+      );
+  }
+}
