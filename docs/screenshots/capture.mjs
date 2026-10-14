@@ -16,6 +16,9 @@ const SHOTS = [
   { name: 'game-name-quiz', steps: ['Play', /Name Quiz/] },
   { name: 'game-memory-match', steps: ['Play', /Memory Match/] },
   { name: 'game-egg-hatch', steps: ['Play', /Egg Hatch/] },
+  // Mid-game: two cards turned over, and an egg after its first tap.
+  { name: 'game-memory-match-mid', steps: ['Play', /Memory Match/, 'Face-down card', 'Face-down card'] },
+  { name: 'game-egg-hatch-mid', steps: ['Play', /Egg Hatch/, /^Egg\./] },
 ];
 
 const browser = await chromium.launch({ executablePath: process.env.CHROME ?? '/usr/bin/google-chrome' });
