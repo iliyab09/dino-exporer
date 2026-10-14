@@ -25,7 +25,7 @@ export const DINOS: Dino[] = [
     period: 'Cretaceous',
     lengthMeters: 9,
     funFact: 'Triceratops had three horns and a big bony frill around its neck!',
-    color: '#FB8C00',
+    color: '#EF6C00',
     tier: 1,
   },
   {
@@ -77,7 +77,7 @@ export const DINOS: Dino[] = [
     period: 'Cretaceous',
     lengthMeters: 6,
     funFact: 'Pteranodon was not a dinosaur! It was a flying reptile that caught fish.',
-    color: '#00ACC1',
+    color: '#0097A7',
     tier: 1,
   },
 ];
