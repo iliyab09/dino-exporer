@@ -2,8 +2,8 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './styles/theme.css';
 import App from './App.tsx';
-import { registerServiceWorker } from './lib/pwa';
-import { DINOS, PLACEHOLDER_ART, dinoArt } from './lib/registry';
+import { offlineUrls, registerServiceWorker } from './lib/pwa';
+import { DINOS } from './lib/registry';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -11,5 +11,5 @@ createRoot(document.getElementById('root')!).render(
   </StrictMode>,
 );
 
-// Precache every dino picture so the gallery and games work offline.
-registerServiceWorker([PLACEHOLDER_ART, ...DINOS.map((d) => dinoArt(d.id))]);
+// Precache every picture (dino art, UI art, icons) so the app works fully offline.
+registerServiceWorker(offlineUrls(import.meta.env.BASE_URL, DINOS.map((d) => d.id)));

@@ -1,10 +1,11 @@
 // Dino Explorer service worker: offline after the first visit, never stale.
 // - The app registers this file as sw.js?v=<build id>. Every build gets a new
 //   script URL, so the browser installs a fresh worker and the old cache is dropped.
-// - Page loads: network first, fall back to the cached page.
+// - Page loads: network first (4 s timeout), fall back to the cached page.
 // - Install: precaches index.html plus every JS/CSS file it references.
-// - The app posts the dino art URLs after load so the whole gallery works offline.
-// - Other same-origin GETs: cache first (build assets are content-hashed), filled on demand.
+// - The app posts all art/icon URLs after load (src/lib/pwa.ts) so everything works offline.
+// - Hashed build files (/assets/): cache first. Everything else (art, icons):
+//   stale-while-revalidate, so updated art shows on the next visit.
 const VERSION = new URL(self.location.href).searchParams.get('v') || 'dev';
 const CACHE = `dino-explorer-${VERSION}`;
 const SCOPE = new URL(self.registration.scope).pathname;
@@ -51,38 +52,62 @@ self.addEventListener('message', (event) => {
   );
 });
 
+const NAV_TIMEOUT_MS = 4000;
+
+/** Network for page loads, but don't leave a kid staring at a blank screen on bad Wi-Fi. */
+function networkFirstPage(req) {
+  const network = fetch(req).then((res) => {
+    if (res.ok) {
+      const copy = res.clone();
+      caches.open(CACHE).then((cache) => cache.put(SCOPE, copy));
+    }
+    return res;
+  });
+  const timeout = new Promise((resolve) => setTimeout(resolve, NAV_TIMEOUT_MS));
+  const cached = () => caches.match(SCOPE);
+  return Promise.race([network, timeout.then(cached)])
+    .then((res) => res || network)
+    .catch(() => cached().then((hit) => hit || network));
+}
+
 self.addEventListener('fetch', (event) => {
   const req = event.request;
-  if (req.method !== 'GET' || new URL(req.url).origin !== self.location.origin) return;
+  const url = new URL(req.url);
+  if (req.method !== 'GET' || url.origin !== self.location.origin) return;
 
   if (req.mode === 'navigate') {
-    event.respondWith(
-      fetch(req)
-        .then((res) => {
-          if (res.ok) {
-            const copy = res.clone();
-            caches.open(CACHE).then((cache) => cache.put(SCOPE, copy));
-          }
-          return res;
-        })
-        .catch(() => caches.match(SCOPE)),
-    );
+    event.respondWith(networkFirstPage(req));
     return;
   }
 
+  // ignoreVary: module scripts are requested with an Origin header that the
+  // precache request did not have; servers often send Vary: Origin.
+  const cachedResponse = caches.match(req, { ignoreVary: true });
+  const fromNetwork = () =>
+    fetch(req).then((res) => {
+      if (res.ok) {
+        const copy = res.clone();
+        caches.open(CACHE).then((cache) => cache.put(req, copy));
+      }
+      return res;
+    });
+
+  // Build output under /assets/ is content-hashed and never changes: cache first.
+  if (url.pathname.startsWith(`${SCOPE}assets/`)) {
+    event.respondWith(cachedResponse.then((hit) => hit || fromNetwork()));
+    return;
+  }
+
+  // Everything else (dino art, UI art, icons) keeps its name across deploys:
+  // serve the cached copy instantly and refresh it in the background.
   event.respondWith(
-    // ignoreVary: module scripts are requested with an Origin header that the
-    // precache request did not have; servers often send Vary: Origin.
-    caches.match(req, { ignoreVary: true }).then(
-      (hit) =>
-        hit ||
-        fetch(req).then((res) => {
-          if (res.ok) {
-            const copy = res.clone();
-            caches.open(CACHE).then((cache) => cache.put(req, copy));
-          }
-          return res;
-        }),
-    ),
+    cachedResponse.then((hit) => {
+      const refresh = fromNetwork();
+      if (hit) {
+        event.waitUntil(refresh.catch(() => undefined));
+        return hit;
+      }
+      return refresh;
+    }),
   );
 });
