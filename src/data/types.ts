@@ -34,6 +34,12 @@ export interface GameProps {
   /** Speak text aloud (wraps Web Speech API, no-op if unsupported). */
   speak: (text: string) => void;
   /** Call when the round ends; stars 1..3 drives the reward screen. */
-  onFinish: (result: { stars: 1 | 2 | 3; correct: number; total: number }) => void;
+  onFinish: (result: {
+    stars: 1 | 2 | 3;
+    correct: number;
+    total: number;
+    /** Optional game-specific praise the reward screen shows and speaks instead of the default star message. */
+    message?: string;
+  }) => void;
   onExit: () => void;
 }
