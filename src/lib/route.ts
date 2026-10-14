@@ -17,8 +17,11 @@ export type Route =
       message?: string;
       /** Dino ids whose sticker this round unlocked. */
       newStickers?: string[];
+      /** Set when this round took the kid to a new level. */
+      levelUp?: 2 | 3;
     }
-  | { name: 'stickers' };
+  | { name: 'stickers' }
+  | { name: 'grownups' };
 
 export const HOME: Route = { name: 'home' };
 

@@ -78,12 +78,89 @@
 .home__hero {
   position: relative;
   z-index: 1;
+  display: block;
   width: min(62%, 240px);
   aspect-ratio: 1;
   margin-top: var(--space-2);
   margin-bottom: -18%;
-  object-fit: contain;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  touch-action: manipulation;
   animation: home-peek 900ms var(--ease-bounce) 200ms both;
+}
+
+.home__hero:focus-visible,
+.home__badge:focus-visible {
+  outline: 4px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* Pixel's hero: blinks every few seconds, bobs when tapped. */
+.hero__bob {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.hero__img,
+.hero__blink {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.hero__blink {
+  opacity: 0;
+  animation: hero-blink 4.2s steps(1, end) 1.5s infinite;
+}
+
+@keyframes hero-blink {
+  0%, 94% { opacity: 0; }
+  95%, 97% { opacity: 1; }
+  98%, 100% { opacity: 0; }
+}
+
+.hero__bob.is-bobbing {
+  animation: hero-bob 520ms var(--ease-bounce);
+  transform-origin: 50% 90%;
+}
+
+@keyframes hero-bob {
+  30% { transform: translateY(-12%) rotate(-3deg); }
+  60% { transform: translateY(0) rotate(2deg) scaleY(0.96); }
+  80% { transform: translateY(-3%); }
+}
+
+/* Level badge: sits on the hill, bottom-left; 72px so the rim stars stay readable. */
+.home__badge {
+  position: absolute;
+  bottom: var(--space-2);
+  left: var(--space-2);
+  z-index: 3;
+  width: 72px;
+  height: 72px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.home__badge .ui-icon {
+  width: 100%;
+  height: 100%;
+}
+
+.home__footer {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .home__hill {
@@ -127,7 +204,9 @@
 
 @media (prefers-reduced-motion: reduce) {
   .home__hero,
-  .home__title:active .home__letter {
+  .home__title:active .home__letter,
+  .hero__blink,
+  .hero__bob.is-bobbing {
     animation: none;
   }
 }
