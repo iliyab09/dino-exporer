@@ -22,6 +22,8 @@ export interface Dino {
   sizeKind?: 'length' | 'wingspan';
   /** One short fun fact, max ~90 characters, reading level ~age 5 */
   funFact: string;
+  /** Optional second fun fact, same rules as funFact; the detail screen can rotate between them. */
+  funFact2?: string;
   /** Primary theme color for this dino's card (hex) */
   color: string;
   /** Difficulty tier for games: 1 = well known (T. rex), 3 = tricky */
