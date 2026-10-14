@@ -29,4 +29,9 @@ describe.skipIf(DINOS.length === 0)('dataset smoke test (src/data/dinos.ts)', ()
   it.each(DINOS.map((d) => [d.id, d] as const))('%s: funFact is 100 chars or less', (_id, d) => {
     expect(d.funFact.length).toBeLessThanOrEqual(100);
   });
+
+  // Lets the app speak the phonetic chunk when a kid taps a syllable chip.
+  it.each(DINOS.map((d) => [d.id, d] as const))('%s: pronunciation chunks match syllables 1:1', (_id, d) => {
+    expect(d.pronunciation.split(/[-\s]+/)).toHaveLength(d.syllables.length);
+  });
 });

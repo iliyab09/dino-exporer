@@ -6,7 +6,7 @@
 
 :root {
   /* ---- Core palette (required by TEAM.md) ---- */
-  --color-bg: #fff8e7;          /* warm cream "sand" */
+  --color-bg: #e6f6fd;          /* pale picture-book sky */
   --color-primary: #2bb673;     /* jungle green: main buttons, active tab */
   --color-accent: #ff8a3d;      /* sunset orange: highlights, stars, "next" */
 
@@ -38,11 +38,13 @@
     system-ui, sans-serif;
   --font-body: ui-rounded, 'Nunito', 'Segoe UI', system-ui, -apple-system,
     Roboto, sans-serif;
-  --text-sm: 1rem;      /* 16px, captions only */
-  --text-md: 1.25rem;   /* 20px, body */
-  --text-lg: 1.75rem;   /* 28px, button labels */
-  --text-xl: 2.5rem;    /* 40px, dino names */
-  --text-xxl: 3.5rem;   /* 56px, screen titles */
+  /* rem = 16px (browser default; do not change the html font-size) */
+  --text-sm: 1rem;                                /* 16px, captions only */
+  --text-md: 1.25rem;                             /* 20px, body */
+  --text-lg: 1.75rem;                             /* 28px, button labels */
+  --text-card: clamp(1.125rem, 4.6vw, 1.5rem);    /* 18-24px, gallery card names */
+  --text-xl: clamp(1.75rem, 8vw, 2.5rem);         /* 28-40px, dino name on detail screen */
+  --text-xxl: clamp(2.25rem, 10vw, 3.5rem);       /* 36-56px, screen titles */
 
   /* ---- Spacing scale (8px grid) ---- */
   --space-1: 4px;
@@ -73,8 +75,11 @@ body {
   background: var(--color-bg);
   color: var(--color-ink);
   font-family: var(--font-body);
-  font-size: 18px;
   -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-size: 1.125rem; /* 18px body text; rem tokens stay 16px-based */
 }
 
 h1,
