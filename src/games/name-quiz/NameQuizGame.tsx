@@ -8,6 +8,9 @@ import '../shared/game.css';
 import './NameQuizGame.css';
 
 const NEXT_ROUND_DELAY_MS = 1800;
+// Kids often miss the first utterance: repeat the question after this long without a tap.
+const IDLE_REPROMPT_MS = 6000;
+const MAX_REPROMPTS = 2;
 
 const question = (d: Dino) => `Which one is the ${d.name}?`;
 
@@ -19,6 +22,8 @@ export default function NameQuizGame({ dinos, speak, onFinish, onExit }: GamePro
   const [firstTry, setFirstTry] = useState(0);
   // Bumped on every wrong tap so the shake animation replays.
   const [shake, setShake] = useState<{ id: string; n: number } | null>(null);
+  // Bumped on every tap; restarts the idle re-prompt timer.
+  const [taps, setTaps] = useState(0);
   const timer = useRef<number | undefined>(undefined);
   // The shell may pass a new speak function each render; only speak when the round changes.
   const speakRef = useRef(speak);
@@ -34,6 +39,16 @@ export default function NameQuizGame({ dinos, speak, onFinish, onExit }: GamePro
     if (round) speakRef.current(question(round.target));
   }, [round]);
 
+  useEffect(() => {
+    if (!round || solved) return;
+    let repeats = 0;
+    const id = window.setInterval(() => {
+      speakRef.current(question(round.target));
+      if (++repeats >= MAX_REPROMPTS) window.clearInterval(id);
+    }, IDLE_REPROMPT_MS);
+    return () => window.clearInterval(id);
+  }, [round, solved, taps]);
+
   if (!round) {
     return (
       <div className="game">
@@ -45,8 +60,14 @@ export default function NameQuizGame({ dinos, speak, onFinish, onExit }: GamePro
     );
   }
 
+  const replay = () => {
+    setTaps((n) => n + 1);
+    speak(question(round.target));
+  };
+
   const pick = (d: Dino) => {
     if (solved) return;
+    setTaps((n) => n + 1);
     if (d.id !== round.target.id) {
       playWrong();
       speak(`That's the ${d.name}. Find the ${round.target.name}!`);
@@ -86,7 +107,7 @@ export default function NameQuizGame({ dinos, speak, onFinish, onExit }: GamePro
         </div>
       </div>
 
-      <button type="button" className="game-btn nq-prompt" onClick={() => speak(question(round.target))}>
+      <button type="button" className="game-btn nq-prompt" onClick={replay}>
         <span className="nq-prompt-icon" aria-hidden="true">🔊</span>
         <span>{round.target.name}?</span>
       </button>
