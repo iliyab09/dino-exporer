@@ -13,34 +13,23 @@ const hatchResult = (n: number) => (n === 1 ? 'You hatched a baby dinosaur!' : `
 const IDLE_REPROMPT_MS = 6000;
 const WOBBLE_DEG_PER_TAP = 6;
 
-/** Cracks drawn after each tap (index = taps so far). */
-const CRACKS = ['', 'M70 120 L85 108 L95 124 L108 110', 'M48 128 L70 120 L85 108 L95 124 L108 110 L122 126 L138 112 L152 124'];
+const UI = `${import.meta.env.BASE_URL}ui/`;
+/** Pixel's egg art per tap count (same outline in every stage, so swaps don't shift). */
+const EGG_STAGES = [`${UI}egg.svg`, `${UI}egg-crack-1.svg`, `${UI}egg-crack-2.svg`];
 
-function Egg({ taps }: { taps: number }) {
-  return (
-    <svg className="eh-egg-svg" viewBox="0 0 200 240" aria-hidden="true">
-      <path
-        className="eh-shell"
-        d="M100 10 C160 10 190 120 190 160 C190 210 150 234 100 234 C50 234 10 210 10 160 C10 120 40 10 100 10 Z"
-      />
-      <circle className="eh-spot" cx="70" cy="70" r="12" />
-      <circle className="eh-spot" cx="135" cy="95" r="16" />
-      <circle className="eh-spot" cx="60" cy="175" r="14" />
-      <circle className="eh-spot" cx="140" cy="190" r="10" />
-      {taps > 0 && <path className="eh-crack" d={CRACKS[Math.min(taps, CRACKS.length - 1)]} />}
-    </svg>
-  );
-}
+/** Pixel's main crack line from egg-crack-2.svg; the hatched shell is the egg below it. */
+const ZIGZAG = '44,110 60,100 72,114 86,98 100,116 114,98 128,114 142,100 157,110';
 
 function ShellBottom() {
   return (
-    <svg className="eh-shell-bottom" viewBox="0 0 200 110" aria-hidden="true">
-      <path
-        className="eh-shell"
-        d="M10 36 L30 20 L48 38 L70 18 L88 38 L108 16 L126 38 L146 18 L166 38 L190 22 C192 80 150 104 100 104 C50 104 8 80 10 36 Z"
-      />
-      <circle className="eh-spot" cx="60" cy="70" r="12" />
-      <circle className="eh-spot" cx="140" cy="76" r="9" />
+    <svg className="eh-shell-bottom" viewBox="0 0 200 200" aria-hidden="true">
+      <defs>
+        <clipPath id="eh-shell-clip">
+          <polygon points={`0,110 ${ZIGZAG} 200,110 200,200 0,200`} />
+        </clipPath>
+      </defs>
+      <image href={EGG_STAGES[0]} width="200" height="200" clipPath="url(#eh-shell-clip)" />
+      <polyline className="eh-crack" points={ZIGZAG} />
     </svg>
   );
 }
@@ -136,7 +125,7 @@ export default function EggHatchGame({ dinos, speak, onFinish, onExit }: GamePro
             aria-label="Egg. Tap to hatch it."
             onClick={tapEgg}
           >
-            <Egg taps={taps} />
+            <img className="eh-egg-img" src={EGG_STAGES[Math.min(taps, EGG_STAGES.length - 1)]} alt="" draggable={false} />
           </button>
         )}
       </div>
