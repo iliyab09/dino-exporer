@@ -1,12 +1,12 @@
-import type { CSSProperties } from "react";
-import { BigButton } from "../components/BigButton";
-import { DinoArt } from "../components/DinoArt";
-import { DINOS } from "../lib/registry";
-import { PHRASES } from "../data/phrases";
-import { speak } from "../lib/speech";
-import "./HomeScreen.css";
+import type { CSSProperties } from 'react';
+import { BigButton } from '../components/BigButton';
+import { DinoArt } from '../components/DinoArt';
+import { DINOS } from '../lib/registry';
+import { PHRASES } from '../data/phrases';
+import { speak } from '../lib/speech';
+import './HomeScreen.css';
 
-const TITLE = "Dino Explorer";
+const TITLE = 'Dino Explorer';
 
 export function HomeScreen({
   onLearn,
@@ -25,15 +25,11 @@ export function HomeScreen({
       <section className="home__scene">
         <span className="home__sun" aria-hidden="true" />
         <h1 className="home__heading">
-          <button
-            type="button"
-            className="home__title"
-            onClick={() => speak(PHRASES.homeIntro)}
-          >
-            {TITLE.split("").map((ch, i) =>
-              ch === " " ? (
+          <button type="button" className="home__title" onClick={() => speak(PHRASES.homeIntro)}>
+            {TITLE.split('').map((ch, i) =>
+              ch === ' ' ? (
                 <span key={i} className="home__gap">
-                  {" "}
+                  {' '}
                 </span>
               ) : (
                 <span
@@ -41,9 +37,9 @@ export function HomeScreen({
                   className="home__letter"
                   style={
                     {
-                      "--i": i,
-                      "--tilt": `${((i % 3) - 1) * 6}deg`,
-                      "--lift": `${(i % 2) * 4}px`,
+                      '--i': i,
+                      '--tilt': `${((i % 3) - 1) * 6}deg`,
+                      '--lift': `${(i % 2) * 4}px`,
                     } as CSSProperties
                   }
                 >
@@ -66,14 +62,7 @@ export function HomeScreen({
           variant="primary"
           onClick={onLearn}
         />
-        <BigButton
-          size="lg"
-          emoji="🎮"
-          label="Play"
-          say={PHRASES.play}
-          variant="accent"
-          onClick={onPlay}
-        />
+        <BigButton size="lg" emoji="🎮" label="Play" say={PHRASES.play} variant="accent" onClick={onPlay} />
       </nav>
 
       <div className="home__footer">
