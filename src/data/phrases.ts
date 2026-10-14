@@ -36,6 +36,12 @@ export const PHRASES = {
   memoryMatch: (name: string) => `You found two ${name}!`,
   memoryNoMatch: 'Not a match. Try again!',
 
+  // Egg Hatch ("baby" also avoids "a Iguanodon")
+  eggIntro: 'Tap the egg to help it hatch!',
+  eggKeepGoing: 'Keep tapping! Crack, crack!',
+  eggHatched: (name: string) => `It's a baby ${name}!`,
+  hatchAnother: 'Hatch another egg!',
+
   // Any game
   tryAgain: 'Try again!',
   allFound: 'You found them all!',
