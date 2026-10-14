@@ -20,7 +20,7 @@ Kids this age mostly cannot read: every name must be spoken aloud (Web Speech AP
 ## Roles and ownership
 | Agent | Role | Owns (files) |
 |---|---|---|
-| Rex | Content Lead (paleontology + kids copy) | `src/data/dinos.ts` (the dataset), `CONTENT.md` |
+| Rex | Content Lead (paleontology + kids copy) | `src/data/dinos.ts` (the dataset), `src/data/phrases.ts` (spoken UI copy), `CONTENT.md` |
 | Pixel | Designer (SVG dino art + visual theme) | `public/dinos/*.svg`, `src/styles/theme.css`, `DESIGN.md` |
 | Sam | Frontend Dev - app shell, Learn screen, speech, rewards | `src/App.tsx`, `src/main.tsx`, `src/screens/*`, `src/components/*`, `src/lib/*`, `index.html` |
 | Nova | Frontend Dev - mini games | `src/games/*` |

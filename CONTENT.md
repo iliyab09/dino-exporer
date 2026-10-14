@@ -50,6 +50,13 @@ General: Natural History Museum London "Dino Directory" (nhm.ac.uk/discover/dino
 4. Brachiosaurus: ~18-22 m, Late Jurassic; long neck held high to browse treetops (Wikipedia; Field Museum).
 5. Velociraptor: ~1.5-2 m, turkey-sized, quill knobs show feathers (Turner et al. 2007; AMNH).
 6. Pteranodon: wingspan ~6 m (males up to ~7 m), toothless, fish eater, pterosaur not dinosaur (Wikipedia; AMNH).
+<<<<<<< HEAD
+7-20: sources added with full entries in PR 2.
+
+## Spoken UI copy
+
+`src/data/phrases.ts` (`PHRASES`, `pickPraise()`) holds every line the app says besides dino data. Screens and games use it instead of hard-coded strings. Rules: short, cheerful, words a 4 year old knows, never scold ("Try again!", not "Wrong!"). Ask Rex to add or change a line.
+=======
 7. Spinosaurus: ~14 m (estimates 12-15), Cretaceous North Africa; tall back sail, fish eater (Ibrahim et al. 2014, 2020; Wikipedia).
 8. Ankylosaurus: ~6-8 m, Late Cretaceous; bony armor plates (osteoderms) and tail club (Arbour & Mallon 2017; NHM).
 9. Diplodocus: ~24-26 m, Late Jurassic; very long whip-like tail; a school bus is ~12 m (Wikipedia; Carnegie Museum).
@@ -64,3 +71,4 @@ General: Natural History Museum London "Dino Directory" (nhm.ac.uk/discover/dino
 18. Coelophysis: ~3 m, Late Triassic; a Coelophysis skull from Carnegie Museum flew on Space Shuttle Endeavour (STS-89, 1998) (Carnegie Museum; Wikipedia).
 19. Plateosaurus: ~5-10 m (typical ~8 m), Late Triassic Europe; walked on two legs, grasping hands (Mallison 2010; Wikipedia).
 20. Eoraptor: ~1 m, ~10 kg, Late Triassic Argentina (~231 Mya), one of the earliest known dinosaurs; mixed teeth suggest omnivore (Sereno et al. 1993; Wikipedia).
+>>>>>>> origin/main
