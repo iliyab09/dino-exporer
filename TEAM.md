@@ -48,9 +48,11 @@ If you need to touch a file you do not own, message the owner or the Director; d
 - Never force-push. Never commit directly to main.
 
 ## Review gates
-- Code: Quinn reviews every PR for build, types, kid-UX (big tap targets, no reading required, speech on every name), and runs it on a 375px wide viewport.
-- Content: Quinn fact-checks `dinos.ts` against Rex's `CONTENT.md` sources.
-- Design: Director + Quinn eyeball the art; feedback to Pixel.
+- Code (logic, games, lib, service worker, end-to-end): Quinn reviews for build, types, kid-UX (big tap targets, no reading required, speech on every name), accessibility, and runs it on a 375px wide viewport.
+- Art, copy, docs (Pixel's SVGs, CONTENT.md, phrases, README, docs/): Rex reviews; renders SVGs and eyeballs them, checks copy at kid reading level.
+- Data PRs by Rex (`dinos.ts`, `phrases.ts`): Quinn reviews, since tests depend on them.
+- Docs-only or CSS-only trivial PRs: the Director may approve and merge directly.
+- Merge: owner merges after APPROVED with `gh pr merge <n> --squash` (the repo auto-deletes merged branches; never use `--delete-branch`).
 
 ## Handoffs and reporting
 - When you finish a task or get blocked, message the Director in 2 to 4 lines: what is done, PR link, what is next or what blocks you.
