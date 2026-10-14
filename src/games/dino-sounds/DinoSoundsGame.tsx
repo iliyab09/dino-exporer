@@ -8,13 +8,6 @@ import { buildSortRounds, type Snack } from './rounds';
 import '../shared/game.css';
 import './DinoSoundsGame.css';
 
-// TODO: move to PHRASES once Rex adds the snack keys.
-const LINES = {
-  intro: 'Help the dinos find their snacks!',
-  question: (name: string) => `${name}! Did it eat plants or meat?`,
-  wrong: 'Hmm, not that one. Try the other snack!',
-};
-
 const BINS: { diet: Snack; emoji: string; label: string }[] = [
   { diet: 'herbivore', emoji: '🌿', label: 'Plants' },
   { diet: 'carnivore', emoji: '🍖', label: 'Meat' },
@@ -45,12 +38,12 @@ export default function DinoSoundsGame({ dinos, speak, onFinish, onExit }: GameP
 
   useEffect(() => {
     if (!dino) return;
-    speakRef.current(index === 0 ? `${LINES.intro} ${LINES.question(dino.name)}` : LINES.question(dino.name));
+    speakRef.current(index === 0 ? `${PHRASES.snackIntro} ${PHRASES.snackQuestion(dino.name)}` : PHRASES.snackQuestion(dino.name));
   }, [dino, index]);
 
   useEffect(() => {
     if (!dino || fed) return;
-    const id = window.setTimeout(() => speakRef.current(LINES.question(dino.name)), IDLE_REPROMPT_MS);
+    const id = window.setTimeout(() => speakRef.current(PHRASES.snackQuestion(dino.name)), IDLE_REPROMPT_MS);
     return () => window.clearTimeout(id);
   }, [dino, fed, taps]);
 
@@ -70,7 +63,7 @@ export default function DinoSoundsGame({ dinos, speak, onFinish, onExit }: GameP
     setTaps((n) => n + 1);
     if (diet !== dino.diet) {
       playWrong();
-      speak(LINES.wrong);
+      speak(PHRASES.snackWrong);
       setMissed(true);
       setWrong((w) => ({ diet, n: (w?.n ?? 0) + 1 }));
       return;
@@ -97,7 +90,7 @@ export default function DinoSoundsGame({ dinos, speak, onFinish, onExit }: GameP
 
   const replay = () => {
     setTaps((n) => n + 1);
-    speak(LINES.question(dino.name));
+    speak(PHRASES.snackQuestion(dino.name));
   };
 
   return (
