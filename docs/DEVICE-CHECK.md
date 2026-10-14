@@ -28,7 +28,7 @@ Device: ______________________ Browser: ______________________
 | 9 | Play **Memory Match** until all the cards are found. | Flip cards, say dino names, and show the stars screen at the end. | ☐ | ☐ |
 | 10 | Play **Egg Hatch**: tap the egg 3 times. | Crack with sounds, and a baby dino pops out and its name is spoken. | ☐ | ☐ |
 | 11 | Play **Dino Snacks** (6 dinos): tap 🌿 or 🍖 for each one. | Say whether it ate plants or meat, and end on the stars screen. | ☐ | ☐ |
-| 12 | Back on Home, tap the ⭐ star button. | Open the sticker book and say how many stars you have. | ☐ | ☐ |
+| 12 | Back on Home, tap the pink sticker-book button (📒 with your star count). | Open the sticker book and say how many stars you have. | ☐ | ☐ |
 | 13 | Any time during the games. | Tap sounds and cheers are easy to hear but not too loud. | ☐ | ☐ |
 | 14 | On a tablet: turn it sideways on Learn and in Memory Match. | Everything still fits and is easy to tap. | ☐ | ☐ |
 
