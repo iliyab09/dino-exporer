@@ -47,7 +47,7 @@ export function DinoScreen({
           speak(dino.name);
         }}
       >
-        <DinoArt key={dino.id} dino={dino} className="dino__art" />
+        <DinoArt key={dino.id} dino={dino} className="dino__art" decorative />
       </button>
 
       <div className="dino__name-row">

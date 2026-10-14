@@ -17,6 +17,7 @@ export function LearnScreen({
 }) {
   return (
     <main className="screen learn">
+      <h1 className="sr-only">Dinosaurs</h1>
       <TopBar onBack={onBack}>
         <BigButton round variant="secondary" emoji="📖" ariaLabel={PHRASES.learnHint} say={PHRASES.learnHint} onClick={() => {}} />
       </TopBar>
@@ -25,7 +26,6 @@ export function LearnScreen({
           <li key={dino.id}>
             <DinoCard
               dino={dino}
-              onSpeak={() => speak(dino.name)}
               onClick={() => {
                 speak(dino.name);
                 onOpen(dino.id);
