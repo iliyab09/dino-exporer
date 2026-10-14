@@ -119,13 +119,21 @@ export default function EggHatchGame({ dinos, speak, onFinish, onExit }: GamePro
         ) : (
           <button
             type="button"
-            // Remount on each tap so the wobble animation replays, bigger each time.
-            key={taps}
-            className={`eh-egg${taps > 0 ? ' wobble' : ''}`}
+            // Alternate two identical wobbles so it replays on every tap without remounting.
+            className={`eh-egg${taps > 0 ? ` wobble-${taps % 2}` : ''}`}
             aria-label="Egg. Tap to hatch it."
             onClick={tapEgg}
           >
-            <img className="eh-egg-img" src={EGG_STAGES[Math.min(taps, EGG_STAGES.length - 1)]} alt="" draggable={false} />
+            {/* All stages load up front and stay mounted, so a slow network never shows a blank egg. */}
+            {EGG_STAGES.map((src, i) => (
+              <img
+                key={src}
+                className={`eh-egg-img${i === Math.min(taps, EGG_STAGES.length - 1) ? ' on' : ''}`}
+                src={src}
+                alt=""
+                draggable={false}
+              />
+            ))}
           </button>
         )}
       </div>
