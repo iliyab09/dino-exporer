@@ -1,5 +1,7 @@
 # Dino Exporer
 
+Dino Explorer is a colorful web app that teaches children aged 4 to 8 the names of 20 prehistoric animals, from Tyrannosaurus rex to Eoraptor. Kids don't need to read: every name, syllable and fun fact is spoken aloud, and big buttons plus short games (Name Quiz, Memory Match, Egg Hatch) turn listening into play. It runs in any phone or tablet browser with no accounts, ads or tracking, and saves progress only on the device.
+
 a clolrful kids app that teaches a dinozaur names and with mini games
 
 ## Screenshots (375px phone)
