@@ -53,7 +53,8 @@ export const PHRASES = {
     2: 'Great job! You got two stars!',
     3: 'Wow! Three stars! You are a dino expert!',
   } satisfies Record<1 | 2 | 3, string>,
-  starCount: (n: number) => (n === 1 ? 'You have one star!' : `You have ${n} stars!`),
+  starCount: (n: number) =>
+    n === 0 ? "No stars yet. Let's play a game!" : n === 1 ? 'You have one star!' : `You have ${n} stars!`,
   playAgain: 'Play again',
   done: 'Done',
   newSticker: (name: string) => `New sticker! You got the ${name}!`,
