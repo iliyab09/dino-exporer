@@ -76,7 +76,7 @@ export function HomeScreen({
             </>
           }
           variant="berry"
-          ariaLabel={PHRASES.stickerBookIntro}
+          ariaLabel={`${totalStars} stars, sticker book`}
           say={`${PHRASES.starCount(totalStars)} ${PHRASES.stickerBookIntro}`}
           onClick={onStickers}
         />

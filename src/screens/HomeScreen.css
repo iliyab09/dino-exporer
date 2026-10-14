@@ -145,3 +145,13 @@
   margin-left: var(--space-3);
   font-size: var(--text-xl);
 }
+
+/* Short phones (iPhone SE and smaller): a slightly shorter scene keeps all buttons on screen. */
+@media (max-height: 700px) {
+  .home__scene {
+    min-height: 260px;
+  }
+  .home__hero {
+    width: min(52%, 200px);
+  }
+}
