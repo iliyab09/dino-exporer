@@ -25,7 +25,7 @@ export const DINOS: Dino[] = [
     period: 'Cretaceous',
     lengthMeters: 9,
     funFact: 'Triceratops had three horns and a big bony frill around its neck!',
-    color: '#EF6C00',
+    color: '#FB8C00',
     tier: 1,
   },
   {
@@ -76,8 +76,9 @@ export const DINOS: Dino[] = [
     diet: 'carnivore',
     period: 'Cretaceous',
     lengthMeters: 6,
+    sizeKind: 'wingspan',
     funFact: 'Pteranodon was not a dinosaur! It was a flying reptile that caught fish.',
-    color: '#0097A7',
+    color: '#00ACC1',
     tier: 1,
   },
   {
@@ -155,7 +156,7 @@ export const DINOS: Dino[] = [
     period: 'Cretaceous',
     lengthMeters: 4.5,
     funFact: 'Pachycephalosaurus had a thick bony dome on its head, like a helmet!',
-    color: '#880E4F',
+    color: '#AEEA00',
     tier: 2,
   },
   {
@@ -168,7 +169,7 @@ export const DINOS: Dino[] = [
     period: 'Cretaceous',
     lengthMeters: 10,
     funFact: 'Iguanodon had a big pointy spike on each thumb!',
-    color: '#827717',
+    color: '#9E9D24',
     tier: 2,
   },
   {
@@ -181,7 +182,7 @@ export const DINOS: Dino[] = [
     period: 'Jurassic',
     lengthMeters: 7,
     funFact: 'Dilophosaurus had two thin crests on its head, and it was longer than a car!',
-    color: '#C77700',
+    color: '#F9A825',
     tier: 2,
   },
   {
@@ -194,7 +195,7 @@ export const DINOS: Dino[] = [
     period: 'Jurassic',
     lengthMeters: 0.5,
     funFact: 'Archaeopteryx had feathers and wings, but also teeth and a long bony tail!',
-    color: '#0277BD',
+    color: '#E040FB',
     tier: 2,
   },
   {
@@ -207,7 +208,7 @@ export const DINOS: Dino[] = [
     period: 'Cretaceous',
     lengthMeters: 6,
     funFact: 'Gallimimus had long legs like an ostrich and could run super fast!',
-    color: '#F4511E',
+    color: '#FF7043',
     tier: 3,
   },
   {
@@ -220,7 +221,7 @@ export const DINOS: Dino[] = [
     period: 'Cretaceous',
     lengthMeters: 1.8,
     funFact: 'Oviraptor means egg thief, but it was really guarding its own eggs, not stealing!',
-    color: '#EC407A',
+    color: '#F48FB1',
     tier: 3,
   },
   {
@@ -246,7 +247,7 @@ export const DINOS: Dino[] = [
     period: 'Triassic',
     lengthMeters: 8,
     funFact: 'Plateosaurus walked on its two back legs and grabbed plants with its hands!',
-    color: '#689F38',
+    color: '#1DE9B6',
     tier: 3,
   },
   {
@@ -259,7 +260,7 @@ export const DINOS: Dino[] = [
     period: 'Triassic',
     lengthMeters: 1,
     funFact: 'Eoraptor was one of the very first dinosaurs, and it was as small as a dog!',
-    color: '#AB47BC',
+    color: '#B388FF',
     tier: 3,
   },
 ];
