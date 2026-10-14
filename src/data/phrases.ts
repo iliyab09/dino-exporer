@@ -9,6 +9,9 @@ export const PHRASES = {
   learnHint: 'Tap a dinosaur to hear its name!',
   playHint: 'Pick a game to play!',
   gamesHatching: 'The games are still hatching. Come back soon!',
+  learn: 'Learn',
+  play: 'Play',
+  oops: "Oops! Let's go back.",
 
   // Dino details
   meaning: (name: string, meaning: string) => `${name} means ${meaning}.`,
@@ -44,7 +47,9 @@ export const PHRASES = {
     2: 'Great job! You got two stars!',
     3: 'Wow! Three stars! You are a dino expert!',
   } satisfies Record<1 | 2 | 3, string>,
-  newSticker: (name: string) => `New sticker! You got the ${name}!`,
+  playAgain: 'Play again',
+  done: 'Done',
+  newSticker:(name: string) => `New sticker! You got the ${name}!`,
   stickerBookIntro: 'Here are all your dino stickers!',
   stickerLocked: 'Play a game to win this sticker!',
 } as const;
