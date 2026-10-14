@@ -9,21 +9,34 @@ html,
 body {
   margin: 0;
   min-height: 100%;
-  overscroll-behavior-y: none;
+  /* It's an app, not a document: no pull-to-refresh or rubber-banding mid-game. */
+  overscroll-behavior: none;
+}
+
+html {
+  -webkit-text-size-adjust: 100%; /* no font inflation in landscape */
 }
 
 #root {
   min-height: 100svh;
 }
 
+/* Controls react instantly and never select their label or pop a callout on long press. */
 button {
   font: inherit;
   -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
 }
 
+/* Dino art is a picture to tap, not an image to save. */
 img {
   -webkit-user-drag: none;
   user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
 }
 
 .sr-only {
@@ -49,24 +62,15 @@ img {
   padding: var(--space-3);
   padding-top: max(var(--space-3), env(safe-area-inset-top));
   padding-bottom: max(var(--space-3), env(safe-area-inset-bottom));
+  padding-left: max(var(--space-3), env(safe-area-inset-left));
+  padding-right: max(var(--space-3), env(safe-area-inset-right));
   animation: screen-in var(--duration-med) ease-out;
 }
 
 @media (min-width: 600px) {
-  .sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
-  border: 0;
-}
-
-.screen {
-    padding-inline: var(--space-5);
+  .screen {
+    padding-left: max(var(--space-5), env(safe-area-inset-left));
+    padding-right: max(var(--space-5), env(safe-area-inset-right));
   }
 }
 
