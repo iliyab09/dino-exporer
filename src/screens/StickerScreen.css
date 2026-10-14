@@ -1,0 +1,88 @@
+.stickers__progress {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--tap-min);
+  padding: var(--space-1) var(--space-3);
+  border: var(--border-width) solid var(--color-ink);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  font-size: var(--text-lg);
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+/* The album page: berry-tinted paper with dashed sticker spots. */
+.stickers__page {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  gap: var(--space-3);
+  margin: 0;
+  padding: var(--space-3);
+  list-style: none;
+  border: var(--border-width) solid var(--color-ink);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--color-berry) 18%, var(--color-surface));
+  box-shadow: var(--shadow-card);
+}
+
+.stickers__slot {
+  aspect-ratio: 1;
+}
+
+.stickers__sticker {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-width: var(--tap-min);
+  min-height: var(--tap-min);
+  padding: 6%;
+  border: 3px dashed color-mix(in srgb, var(--color-ink) 30%, transparent);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.stickers__sticker:focus-visible {
+  outline: 4px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+.stickers__art {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+/* Owned: a die-cut sticker with a white border, slightly tilted. */
+.stickers__sticker--owned {
+  border-color: transparent;
+}
+
+.stickers__sticker--owned .stickers__art {
+  transform: rotate(var(--tilt));
+  filter: drop-shadow(3px 0 0 var(--color-surface)) drop-shadow(-3px 0 0 var(--color-surface))
+    drop-shadow(0 3px 0 var(--color-surface)) drop-shadow(0 -3px 0 var(--color-surface))
+    drop-shadow(0 4px 0 var(--color-shadow));
+  transition: transform var(--duration-fast) var(--ease-bounce);
+}
+
+.stickers__sticker--owned:active .stickers__art {
+  transform: rotate(0) scale(1.1);
+}
+
+/* Locked: a mystery silhouette. */
+.stickers__sticker--locked .stickers__art {
+  filter: brightness(0);
+  opacity: 0.12;
+}
+
+.stickers__lock {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: var(--text-xl);
+}

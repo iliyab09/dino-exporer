@@ -20,6 +20,7 @@ export function GameScreen({
   const Game = game.component;
   return (
     <main className="screen game-host">
+      <h1 className="sr-only">{game.title}</h1>
       <ErrorBoundary
         fallback={
           <BigButton size="lg" emoji="🙈" variant="secondary" ariaLabel="Back" say={PHRASES.oops} onClick={onExit} />

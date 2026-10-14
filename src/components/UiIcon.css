@@ -1,0 +1,8 @@
+.ui-icon {
+  display: inline-block;
+  width: 1.2em;
+  height: 1.2em;
+  object-fit: contain;
+  vertical-align: middle;
+  pointer-events: none;
+}

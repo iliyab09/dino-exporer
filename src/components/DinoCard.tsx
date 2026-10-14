@@ -34,7 +34,7 @@ export function DinoCard({
       <button
         type="button"
         className="dino-card__main"
-        aria-label={dino.name}
+        aria-label={showName ? undefined : dino.name}
         disabled={disabled || !onClick}
         onClick={() => {
           playTap();

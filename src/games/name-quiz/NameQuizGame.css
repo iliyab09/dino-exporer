@@ -65,6 +65,52 @@
   box-shadow: var(--shadow-card);
 }
 
+/* Each round's options arrive one after another instead of all at once. */
+.nq-option {
+  animation: nq-enter 250ms var(--game-ease-out) backwards;
+}
+
+.nq-option:nth-child(2) {
+  animation-delay: 60ms;
+}
+
+.nq-option:nth-child(3) {
+  animation-delay: 120ms;
+}
+
+/* Feedback animations win over the entrance (same element). */
+.nq-option.game-wobble {
+  animation: game-wobble 0.5s ease-in-out;
+}
+
+.nq-option.game-wobble-alt {
+  animation: game-wobble-alt 0.5s ease-in-out;
+}
+
+.nq-option.game-pop {
+  animation: game-pop 0.4s var(--ease-bounce) forwards;
+}
+
+@keyframes nq-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Fade in only; wrong/right are still clear from the tints. */
+  @keyframes nq-enter {
+    from { opacity: 0; }
+  }
+
+  .nq-option.game-wobble,
+  .nq-option.game-wobble-alt,
+  .nq-option.game-pop {
+    animation: none;
+  }
+}
+
 .nq-option:active {
   box-shadow: 0 2px 0 var(--color-shadow);
 }

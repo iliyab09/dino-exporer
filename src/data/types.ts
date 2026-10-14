@@ -44,4 +44,9 @@ export interface GameProps {
     message?: string;
   }) => void;
   onExit: () => void;
+  /**
+   * Learning level computed by the shell from total stars (1 = beginner).
+   * Games prefer dinos with tier <= level and mix in higher tiers as level grows. Defaults to 3 (all dinos).
+   */
+  level?: 1 | 2 | 3;
 }

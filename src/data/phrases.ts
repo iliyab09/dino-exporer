@@ -62,6 +62,16 @@ export const PHRASES = {
     n === 0 ? "No stars yet. Let's play a game!" : n === 1 ? 'You have one star!' : `You have ${n} stars!`,
   playAgain: 'Play again',
   done: 'Done',
+  // Levels: levelUp is spoken on reaching a level; levelName labels the Home badge.
+  levelUp: {
+    2: "Wow! You're a Dino Explorer now! New dinosaurs unlocked!",
+    3: "Amazing! You're a Dino Expert! All the dinosaurs are yours!",
+  } satisfies Record<2 | 3, string>,
+  levelName: {
+    1: 'Dino Hatchling',
+    2: 'Dino Explorer',
+    3: 'Dino Expert',
+  } satisfies Record<1 | 2 | 3, string>,
   newSticker: (name: string) => `New sticker! You got the ${name}!`,
   stickerBookIntro: 'Here are all your dino stickers!',
   stickerLocked: 'Play a game to win this sticker!',
