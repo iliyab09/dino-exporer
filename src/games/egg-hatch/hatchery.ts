@@ -1,7 +1,7 @@
 import type { Dino } from '../../data/types';
 
 export const TAPS_TO_HATCH = 3;
-const STORAGE_KEY = 'eggHatched';
+const STORAGE_KEY = 'dino-explorer:eggs:v1';
 
 /**
  * Next dino to hatch: a random one the kid has not hatched yet. Once every dino
