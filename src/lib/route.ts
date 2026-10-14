@@ -15,7 +15,10 @@ export type Route =
       total: number;
       /** Game-specific praise shown and spoken instead of the default star line. */
       message?: string;
-    };
+      /** Dino ids whose sticker this round unlocked. */
+      newStickers?: string[];
+    }
+  | { name: 'stickers' };
 
 export const HOME: Route = { name: 'home' };
 

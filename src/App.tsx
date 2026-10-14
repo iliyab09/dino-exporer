@@ -3,12 +3,14 @@ import { DINOS, GAMES } from './lib/registry';
 import { loadProgress, recordStars, type Progress } from './lib/progress';
 import { HOME, isHistoryEntry, parentOf, type HistoryEntry, type Route } from './lib/route';
 import { stopSpeaking } from './lib/speech';
+import { newlyUnlocked } from './lib/stickers';
 import { DinoScreen } from './screens/DinoScreen';
 import { GameScreen } from './screens/GameScreen';
 import { HomeScreen } from './screens/HomeScreen';
 import { LearnScreen } from './screens/LearnScreen';
 import { PlayScreen } from './screens/PlayScreen';
 import { RewardScreen } from './screens/RewardScreen';
+import { StickerScreen } from './screens/StickerScreen';
 import './App.css';
 
 function initialEntry(): HistoryEntry {
@@ -61,6 +63,7 @@ export default function App() {
           totalStars={progress.totalStars}
           onLearn={() => go({ name: 'learn' })}
           onPlay={() => go({ name: 'play' })}
+          onStickers={() => go({ name: 'stickers' })}
         />
       );
 
@@ -106,8 +109,11 @@ export default function App() {
           dinos={DINOS}
           onExit={back}
           onFinish={({ stars, correct, total, message }) => {
-            setProgress(recordStars(game.id, stars));
-            go({ name: 'reward', gameId: game.id, stars, correct, total, message }, true);
+            const before = progress.totalStars;
+            const next = recordStars(game.id, stars);
+            setProgress(next);
+            const newStickers = newlyUnlocked(DINOS, before, next.totalStars).map((d) => d.id);
+            go({ name: 'reward', gameId: game.id, stars, correct, total, message, newStickers }, true);
           }}
         />
       );
@@ -118,9 +124,14 @@ export default function App() {
         <RewardScreen
           stars={route.stars}
           message={route.message}
+          newStickers={DINOS.filter((d) => route.newStickers?.includes(d.id))}
+          onStickers={() => go({ name: 'stickers' }, true)}
           onAgain={() => go({ name: 'game', id: route.gameId }, true)}
           onDone={back}
         />
       );
+
+    case 'stickers':
+      return <StickerScreen dinos={DINOS} totalStars={progress.totalStars} onBack={back} />;
   }
 }
