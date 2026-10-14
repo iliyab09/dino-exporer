@@ -3,20 +3,10 @@ import { DinoArt } from '../components/DinoArt';
 import { TopBar } from '../components/TopBar';
 import type { Dino } from '../data/types';
 import { playTap } from '../lib/sfx';
+import { sizeComparison } from '../lib/size';
 import { speak } from '../lib/speech';
+import { syllableSounds } from '../lib/syllables';
 import './DinoScreen.css';
-
-/**
- * TTS mangles bare syllables like "Pter" or "Ty", so each chip speaks the
- * matching phonetic chunk from `pronunciation` ("try-SAIR-uh-tops") when the
- * counts line up. Lowercased so "SAIR" is not spelled out letter by letter.
- */
-export function syllableSounds(dino: Dino): string[] {
-  const chunks = dino.pronunciation.split(/[-\s]+/).filter(Boolean);
-  return chunks.length === dino.syllables.length
-    ? chunks.map((c) => c.toLowerCase())
-    : dino.syllables;
-}
 
 export function DinoScreen({
   dino,
@@ -32,6 +22,7 @@ export function DinoScreen({
   onOpen: (id: string) => void;
 }) {
   const sounds = syllableSounds(dino);
+  const size = sizeComparison(dino);
   const go = (d: Dino) => {
     speak(d.name);
     onOpen(d.id);
@@ -93,6 +84,24 @@ export function DinoScreen({
           onClick={() => speak(dino.funFact)}
         />
       </div>
+
+      <button
+        type="button"
+        className="dino__size"
+        aria-label={size.sentence}
+        onClick={() => {
+          playTap();
+          speak(size.sentence);
+        }}
+      >
+        <span className="dino__size-dino" aria-hidden="true">
+          {dino.sizeKind === 'wingspan' ? '🪽' : '📏'}
+        </span>
+        <span aria-hidden="true">=</span>
+        <span className="dino__size-things" aria-hidden="true">
+          {size.emoji.repeat(size.count)}
+        </span>
+      </button>
 
       <nav className="dino__nav">
         <BigButton

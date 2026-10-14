@@ -112,6 +112,40 @@
   transform: translateY(-50%) rotate(45deg);
 }
 
+.dino__size {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  min-height: var(--tap-big);
+  padding: var(--space-2) var(--space-4);
+  border: var(--border-width) solid var(--color-ink);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.dino__size:active {
+  transform: translateY(3px);
+}
+
+.dino__size:focus-visible {
+  outline: 4px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+.dino__size-things {
+  letter-spacing: 0.05em;
+}
+
 .dino__nav {
   display: flex;
   justify-content: space-between;

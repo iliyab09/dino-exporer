@@ -1,4 +1,4 @@
-import { useEffect, useMemo, type CSSProperties } from 'react';
+import { useEffect, useState, type CSSProperties } from 'react';
 import { BigButton } from '../components/BigButton';
 import { Stars } from '../components/Stars';
 import { playWin } from '../lib/sfx';
@@ -19,6 +19,19 @@ const CHEERS: Record<1 | 2 | 3, string> = {
   3: 'Wow! Three stars! You are a dino expert!',
 };
 
+/** Random confetti pieces; more stars, bigger party. */
+function makeConfetti(stars: number) {
+  return Array.from({ length: 14 + stars * 10 }, (_, i) => ({
+    left: Math.random() * 100,
+    delay: Math.random() * 1.2,
+    duration: 2.2 + Math.random() * 1.8,
+    drift: (Math.random() - 0.5) * 120,
+    spin: Math.random() * 720 - 360,
+    color: CONFETTI_COLORS[i % CONFETTI_COLORS.length],
+    round: i % 3 === 0,
+  }));
+}
+
 export function RewardScreen({
   stars,
   onAgain,
@@ -34,20 +47,7 @@ export function RewardScreen({
     return () => window.clearTimeout(t);
   }, [stars]);
 
-  // Confetti count scales with the result: more stars, bigger party.
-  const confetti = useMemo(
-    () =>
-      Array.from({ length: 14 + stars * 10 }, (_, i) => ({
-        left: Math.random() * 100,
-        delay: Math.random() * 1.2,
-        duration: 2.2 + Math.random() * 1.8,
-        drift: (Math.random() - 0.5) * 120,
-        spin: Math.random() * 720 - 360,
-        color: CONFETTI_COLORS[i % CONFETTI_COLORS.length],
-        round: i % 3 === 0,
-      })),
-    [stars],
-  );
+  const [confetti] = useState(() => makeConfetti(stars));
 
   return (
     <main className="screen reward">
