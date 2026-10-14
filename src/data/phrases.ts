@@ -36,6 +36,12 @@ export const PHRASES = {
   memoryMatch: (name: string) => `You found two ${name}!`,
   memoryNoMatch: 'Not a match. Try again!',
 
+  // Egg Hatch ("baby" also avoids "a Iguanodon")
+  eggIntro: 'Tap the egg to help it hatch!',
+  eggKeepGoing: 'Keep tapping! Crack, crack!',
+  eggHatched: (name: string) => `It's a baby ${name}!`,
+  hatchAnother: 'Hatch another egg!',
+
   // Any game
   tryAgain: 'Try again!',
   allFound: 'You found them all!',
@@ -47,6 +53,7 @@ export const PHRASES = {
     2: 'Great job! You got two stars!',
     3: 'Wow! Three stars! You are a dino expert!',
   } satisfies Record<1 | 2 | 3, string>,
+  starCount: (n: number) => (n === 1 ? 'You have one star!' : `You have ${n} stars!`),
   playAgain: 'Play again',
   done: 'Done',
   newSticker: (name: string) => `New sticker! You got the ${name}!`,
