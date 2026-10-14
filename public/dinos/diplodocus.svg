@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><g stroke="#2d2a3e" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
-<rect x="44" y="124" width="20" height="58" rx="9" fill="#4a5cc4"/><rect x="104" y="124" width="20" height="58" rx="9" fill="#4a5cc4"/>
+<path d="M36,105 C22,108 8,104 5,95 C3,88 7,83 13,84" fill="none" stroke-width="10"/><path d="M36,105 C22,108 8,104 5,95 C3,88 7,83 13,84" fill="none" stroke="#6b7fe0" stroke-width="3"/><rect x="44" y="124" width="20" height="58" rx="9" fill="#4a5cc4"/><rect x="104" y="124" width="20" height="58" rx="9" fill="#4a5cc4"/>
 <rect x="62" y="126" width="22" height="56" rx="9" fill="#6b7fe0"/><rect x="122" y="124" width="22" height="58" rx="9" fill="#6b7fe0"/>
-<path d="M4,104 C24,100 48,90 70,90 C100,86 118,88 130,80 C146,68 158,56 170,50 C178,44 194,44 196,54 C198,62 190,68 180,66 C168,70 158,84 150,102 C144,118 136,134 112,138 C90,142 70,140 56,132 C40,122 20,110 4,104 Z" fill="#6b7fe0"/>
+<path d="M28,102 C40,98 52,90 70,90 C100,86 118,88 130,80 C146,74 160,70 172,68 C182,64 196,66 196,76 C196,84 188,88 178,86 C166,88 156,96 150,106 C144,118 136,134 112,138 C90,142 70,140 56,132 C44,124 36,110 28,102 Z" fill="#6b7fe0"/>
 <path d="M146,108 C140,124 130,132 112,134 C96,136 82,134 72,130 C100,128 128,120 146,108 Z" fill="#c9d1ff" stroke="none"/>
-<circle cx="80" cy="104" r="5" fill="#4a5cc4" stroke="none"/><circle cx="102" cy="100" r="6" fill="#4a5cc4" stroke="none"/><circle cx="56" cy="104" r="4" fill="#4a5cc4" stroke="none"/><circle cx="148" cy="80" r="4" fill="#4a5cc4" stroke="none"/>
-<path d="M195,60 C191,63 186,63 182,61" fill="none" stroke-width="4"/>
-<circle cx="180" cy="54" r="7" fill="#fff"/><circle cx="182" cy="55" r="4" fill="#2d2a3e" stroke="none"/><circle cx="184" cy="52" r="2" fill="#fff" stroke="none"/>
+<circle cx="80" cy="104" r="5" fill="#4a5cc4" stroke="none"/><circle cx="102" cy="100" r="6" fill="#4a5cc4" stroke="none"/><circle cx="56" cy="104" r="4" fill="#4a5cc4" stroke="none"/><circle cx="148" cy="88" r="4" fill="#4a5cc4" stroke="none"/>
+<path d="M195,80 C191,83 186,83 182,81" fill="none" stroke-width="4"/>
+<circle cx="180" cy="74" r="7" fill="#fff"/><circle cx="182" cy="75" r="4" fill="#2d2a3e" stroke="none"/><circle cx="184" cy="72" r="2" fill="#fff" stroke="none"/>
 </g></svg>
