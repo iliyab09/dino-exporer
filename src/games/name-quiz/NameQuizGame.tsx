@@ -125,11 +125,13 @@ export default function NameQuizGame({ dinos, speak, onFinish, onExit }: GamePro
               type="button"
               key={shake?.id === d.id ? `${d.id}-${shake.n}` : d.id}
               className={classes.join(' ')}
+              aria-label={d.name}
               style={{ '--dino-color': d.color } as CSSProperties}
               onClick={() => pick(d)}
             >
               <DinoImage id={d.id} />
-              <span className="nq-option-name">{d.name}</span>
+              {/* Names show only once heard, so the kid has to recognise the dino, not match text. */}
+              {(isWrong || isRight) && <span className="nq-option-name">{d.name}</span>}
             </button>
           );
         })}

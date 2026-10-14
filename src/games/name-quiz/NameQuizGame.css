@@ -68,15 +68,19 @@
   box-shadow: 0 2px 0 var(--color-shadow);
 }
 
+.nq-option:not(:has(.nq-option-name)) {
+  justify-content: center;
+}
+
 .nq-option img {
   flex: none;
   box-sizing: border-box;
-  width: 96px;
-  height: 96px;
+  width: 104px;
+  height: 104px;
   padding: 6%;
   object-fit: contain;
   border-radius: var(--radius-sm);
-  background: var(--dino-color);
+  background: color-mix(in srgb, var(--dino-color) 22%, white);
   pointer-events: none;
 }
 
