@@ -51,3 +51,7 @@ General: Natural History Museum London "Dino Directory" (nhm.ac.uk/discover/dino
 5. Velociraptor: ~1.5-2 m, turkey-sized, quill knobs show feathers (Turner et al. 2007; AMNH).
 6. Pteranodon: wingspan ~6 m (males up to ~7 m), toothless, fish eater, pterosaur not dinosaur (Wikipedia; AMNH).
 7-20: sources added with full entries in PR 2.
+
+## Spoken UI copy
+
+`src/data/phrases.ts` (`PHRASES`, `pickPraise()`) holds every line the app says besides dino data. Screens and games use it instead of hard-coded strings. Rules: short, cheerful, words a 4 year old knows, never scold ("Try again!", not "Wrong!"). Ask Rex to add or change a line.
