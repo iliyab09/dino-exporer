@@ -2,7 +2,7 @@
 
 Some things can only be checked on a real phone or tablet: how the voices sound, sound effects, installing, and working offline. Please do this once on an **iPhone (Safari)** and once on an **Android phone or tablet (Chrome)** if you have both.
 
-**Before you start:** turn the volume up and the silent switch off. Open the app link the team sent you.
+**Before you start:** turn the volume up and the silent switch off. Open **https://iliyab09.github.io/dino-exporer/** in the browser.
 
 **How to report:** tick Yes or No for each line. For any No, write one short note (what you tapped, what you heard). Send the filled list (or a photo of it) to the Director in the team dashboard. For "sounds wrong" items, writing down what you heard is perfect, e.g. "Eoraptor: said E-E-E".
 
@@ -34,7 +34,7 @@ Device: ______________________ Browser: ______________________
 
 ## 3. Install and offline
 
-> These two only work once offline support is added. If the browser offers no "Add to Home Screen" option yet, tick No and write "not offered".
+> Open the app once with internet first, so it can save itself for offline use.
 
 | # | Do this | It should... | Yes | No |
 |---|---|---|---|---|

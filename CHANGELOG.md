@@ -4,6 +4,8 @@
 
 First release of Dino Explorer: a web app that teaches children aged 4 to 8 the names of 20 prehistoric animals, with no reading needed.
 
+**Play it:** https://iliyab09.github.io/dino-exporer/
+
 ### Learn
 - **20 animals**: 19 dinosaurs plus Pteranodon (a flying reptile). They span the Triassic, Jurassic and Cretaceous, with plant-eaters, meat-eaters and omnivores, in 3 difficulty tiers.
 - Every dino has a hand-drawn SVG picture, a kid-friendly pronunciation, what its name means, diet, period, size compared with cats, beds or cars, and **two fun facts**. Every fact is checked against museum and science sources (see `CONTENT.md`).
@@ -18,6 +20,9 @@ First release of Dino Explorer: a web app that teaches children aged 4 to 8 the 
   - **Dino Snacks**: did it eat plants or meat?
 - **Sticker book**: every 3 stars unlocks a new dino sticker, which flies into the book on the reward screen.
 - Stars and progress are saved on the device (`localStorage`). No accounts, no ads, no tracking.
+
+### Install and offline
+- Installable to the home screen (PWA) with the T. rex icon, and works offline after the first visit.
 
 ### Look and feel
 - Bright flat art for all 20 dinos, a T. rex app icon and favicon, and a social preview image.
@@ -35,7 +40,6 @@ First release of Dino Explorer: a web app that teaches children aged 4 to 8 the 
 - Manual GitHub Pages deploy workflow (runs only when started by hand).
 
 ### Not in this build yet
-- Install to home screen and offline play (PWA manifest + service worker).
 - The "For grown-ups" screen: its copy is ready (`src/data/about.ts`) but the screen isn't built yet.
 - Levels (Dino Hatchling → Explorer → Expert): spoken lines are ready, but the level logic isn't built yet.
 - Voice check on real phones: see `docs/DEVICE-CHECK.md`.
