@@ -15,8 +15,8 @@ const MAX_REPROMPTS = 2;
 
 const question = (d: Dino) => PHRASES.quizQuestion(d.name);
 
-export default function NameQuizGame({ dinos, speak, onFinish, onExit }: GameProps) {
-  const [rounds] = useState(() => buildRounds(dinos));
+export default function NameQuizGame({ dinos, speak, onFinish, onExit, level = 3 }: GameProps) {
+  const [rounds] = useState(() => buildRounds(dinos, level));
   const [index, setIndex] = useState(0);
   const [wrongIds, setWrongIds] = useState<string[]>([]);
   const [solved, setSolved] = useState(false);
