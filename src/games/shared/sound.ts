@@ -42,3 +42,22 @@ export function playWrong() {
 export function playPop() {
   tone(660, 0, 0.08, 'sine', 0.1);
 }
+
+/** Eggshell crack: a short filtered noise burst. Louder for bigger cracks (0..1). */
+export function playCrack(strength = 0.5) {
+  const ac = audio();
+  if (!ac) return;
+  const len = Math.floor(ac.sampleRate * 0.12);
+  const buf = ac.createBuffer(1, len, ac.sampleRate);
+  const data = buf.getChannelData(0);
+  for (let i = 0; i < len; i++) data[i] = (Math.random() * 2 - 1) * (1 - i / len) ** 3;
+  const src = ac.createBufferSource();
+  src.buffer = buf;
+  const filter = ac.createBiquadFilter();
+  filter.type = 'bandpass';
+  filter.frequency.value = 1800;
+  const gain = ac.createGain();
+  gain.gain.value = 0.25 + 0.35 * strength;
+  src.connect(filter).connect(gain).connect(ac.destination);
+  src.start();
+}
