@@ -48,6 +48,7 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--space-3);
+  --nq-art: clamp(96px, calc((100dvh - 350px) / 3), 140px);
 }
 
 .nq-option {
@@ -75,9 +76,10 @@
 .nq-option img {
   flex: none;
   box-sizing: border-box;
-  width: 104px;
-  height: 104px;
-  padding: 6%;
+  /* As big as the screen allows: 140px on most phones, smaller on short ones so all 3 fit without scrolling. */
+  width: var(--nq-art);
+  height: var(--nq-art);
+  padding: 4%;
   object-fit: contain;
   border-radius: var(--radius-sm);
   background: color-mix(in srgb, var(--dino-color) 22%, white);
