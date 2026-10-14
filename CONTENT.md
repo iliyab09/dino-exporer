@@ -9,21 +9,21 @@ Order in `DINOS` follows this table. The first 6 are the M1 set. Art file = `pub
 | # | id | Period | Diet | Tier | Color |
 |---|---|---|---|---|---|
 | 1 | `tyrannosaurus-rex` | Cretaceous | carnivore | 1 | `#E53935` red |
-| 2 | `triceratops` | Cretaceous | herbivore | 1 | `#FB8C00` orange |
+| 2 | `triceratops` | Cretaceous | herbivore | 1 | `#EF6C00` orange |
 | 3 | `stegosaurus` | Jurassic | herbivore | 1 | `#43A047` green |
 | 4 | `brachiosaurus` | Jurassic | herbivore | 1 | `#1E88E5` blue |
 | 5 | `velociraptor` | Cretaceous | carnivore | 1 | `#8E24AA` purple |
-| 6 | `pteranodon` | Cretaceous | carnivore | 1 | `#00ACC1` cyan |
+| 6 | `pteranodon` | Cretaceous | carnivore | 1 | `#0097A7` cyan |
 | 7 | `spinosaurus` | Cretaceous | carnivore | 1 | `#D81B60` magenta |
 | 8 | `ankylosaurus` | Cretaceous | herbivore | 1 | `#795548` brown |
 | 9 | `diplodocus` | Jurassic | herbivore | 2 | `#3949AB` indigo |
 | 10 | `parasaurolophus` | Cretaceous | herbivore | 2 | `#00897B` teal |
 | 11 | `allosaurus` | Jurassic | carnivore | 2 | `#546E7A` slate |
-| 12 | `pachycephalosaurus` | Cretaceous | herbivore | 2 | `#7CB342` lime green |
-| 13 | `iguanodon` | Cretaceous | herbivore | 2 | `#9E9D24` olive |
-| 14 | `dilophosaurus` | Jurassic | carnivore | 2 | `#F9A825` gold |
+| 12 | `pachycephalosaurus` | Cretaceous | herbivore | 2 | `#880E4F` wine |
+| 13 | `iguanodon` | Cretaceous | herbivore | 2 | `#827717` olive |
+| 14 | `dilophosaurus` | Jurassic | carnivore | 2 | `#C77700` amber |
 | 15 | `archaeopteryx` | Jurassic | carnivore | 2 | `#0277BD` ocean blue |
-| 16 | `gallimimus` | Cretaceous | omnivore | 3 | `#FF7043` coral |
+| 16 | `gallimimus` | Cretaceous | omnivore | 3 | `#F4511E` red-orange |
 | 17 | `oviraptor` | Cretaceous | omnivore | 3 | `#EC407A` pink |
 | 18 | `coelophysis` | Triassic | carnivore | 3 | `#BF360C` rust |
 | 19 | `plateosaurus` | Triassic | herbivore | 3 | `#689F38` leaf green |
