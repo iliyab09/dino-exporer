@@ -14,8 +14,9 @@ const SHOTS = [
   { name: 'detail', steps: ['Learn', 'first-dino'] },
   { name: 'play', steps: ['Play'] },
   { name: 'game-name-quiz', steps: ['Play', /Name Quiz/] },
-  { name: 'game-memory-match', steps: ['Play', /Memory Match/] },
-  { name: 'game-egg-hatch', steps: ['Play', /Egg Hatch/] },
+  { name: 'game-dino-snacks', steps: ['Play', /Dino Snacks/] },
+  // 21 stars = 7 stickers unlocked, so the book isn't empty.
+  { name: 'stickers', seedStars: 21, steps: [/dino stickers/] },
   // Mid-game: two cards turned over, and an egg after its first tap.
   { name: 'game-memory-match-mid', steps: ['Play', /Memory Match/, 'Face-down card', 'Face-down card'] },
   { name: 'game-egg-hatch-mid', steps: ['Play', /Egg Hatch/, /^Egg\./] },
@@ -32,6 +33,11 @@ const context = await browser.newContext({
 
 for (const shot of SHOTS) {
   const page = await context.newPage();
+  if (shot.seedStars) {
+    await page.addInitScript((stars) => {
+      localStorage.setItem('dino-explorer:progress:v1', JSON.stringify({ best: {}, totalStars: stars }));
+    }, shot.seedStars);
+  }
   await page.goto(BASE);
   await page.waitForLoadState('networkidle');
   for (const step of shot.steps) {
