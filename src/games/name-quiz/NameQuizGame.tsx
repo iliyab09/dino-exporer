@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
+import { PHRASES } from '../../data/phrases';
 import type { Dino, GameProps } from '../../data/types';
 import DinoImage from '../shared/DinoImage';
 import { playCorrect, playWrong } from '../shared/sound';
@@ -12,7 +13,7 @@ const NEXT_ROUND_DELAY_MS = 1800;
 const IDLE_REPROMPT_MS = 6000;
 const MAX_REPROMPTS = 2;
 
-const question = (d: Dino) => `Which one is the ${d.name}?`;
+const question = (d: Dino) => PHRASES.quizQuestion(d.name);
 
 export default function NameQuizGame({ dinos, speak, onFinish, onExit }: GameProps) {
   const [rounds] = useState(() => buildRounds(dinos));
@@ -70,14 +71,14 @@ export default function NameQuizGame({ dinos, speak, onFinish, onExit }: GamePro
     setTaps((n) => n + 1);
     if (d.id !== round.target.id) {
       playWrong();
-      speak(`That's the ${d.name}. Find the ${round.target.name}!`);
+      speak(PHRASES.quizWrong(d.name, round.target.name));
       setShake((s) => ({ id: d.id, n: (s?.n ?? 0) + 1 }));
       if (!wrongIds.includes(d.id)) setWrongIds([...wrongIds, d.id]);
       return;
     }
 
     playCorrect();
-    speak(`Yes! That's the ${d.name}!`);
+    speak(PHRASES.quizCorrect(d.name));
     setSolved(true);
     const score = firstTry + (wrongIds.length === 0 ? 1 : 0);
     setFirstTry(score);

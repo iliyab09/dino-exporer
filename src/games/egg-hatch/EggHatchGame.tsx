@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
+import { PHRASES } from '../../data/phrases';
 import type { Dino, GameProps } from '../../data/types';
 import DinoImage from '../shared/DinoImage';
 import { playCorrect, playCrack } from '../shared/sound';
@@ -6,13 +7,8 @@ import { TAPS_TO_HATCH, loadHatched, pickNextDino, saveHatched } from './hatcher
 import '../shared/game.css';
 import './EggHatchGame.css';
 
-// TODO: move to PHRASES once Rex adds the egg keys.
-const LINES = {
-  intro: 'Tap the egg to help it hatch!',
-  keepGoing: 'Keep tapping! Crack, crack!',
-  hatched: (name: string) => `It's a baby ${name}!`,
-  result: (n: number) => (n === 1 ? 'You hatched a baby dinosaur!' : `You hatched ${n} baby dinosaurs!`),
-};
+// Hatch-count line for the reward screen (Rex: candidate for PHRASES).
+const hatchResult = (n: number) => (n === 1 ? 'You hatched a baby dinosaur!' : `You hatched ${n} baby dinosaurs!`);
 
 const IDLE_REPROMPT_MS = 6000;
 const WOBBLE_DEG_PER_TAP = 6;
@@ -64,18 +60,18 @@ export default function EggHatchGame({ dinos, speak, onFinish, onExit }: GamePro
   // Intro for every new egg, and one reminder if the egg sits untouched.
   useEffect(() => {
     if (!dino) return;
-    speakRef.current(LINES.intro);
+    speakRef.current(PHRASES.eggIntro);
   }, [dino]);
 
   useEffect(() => {
     if (!dino || taps > 0) return;
-    const id = window.setTimeout(() => speakRef.current(LINES.intro), IDLE_REPROMPT_MS);
+    const id = window.setTimeout(() => speakRef.current(PHRASES.eggIntro), IDLE_REPROMPT_MS);
     return () => window.clearTimeout(id);
   }, [dino, taps]);
 
   // Leaving after at least one hatch counts as a finished play for the shell.
   const back = () => {
-    if (hatchCount > 0) onFinish({ stars: 1, correct: hatchCount, total: hatchCount, message: LINES.result(hatchCount) });
+    if (hatchCount > 0) onFinish({ stars: 1, correct: hatchCount, total: hatchCount, message: hatchResult(hatchCount) });
     else onExit();
   };
 
@@ -95,11 +91,11 @@ export default function EggHatchGame({ dinos, speak, onFinish, onExit }: GamePro
     setTaps(next);
     playCrack(next / TAPS_TO_HATCH);
     if (next < TAPS_TO_HATCH) {
-      if (next === 1) speak(LINES.keepGoing);
+      if (next === 1) speak(PHRASES.eggKeepGoing);
       return;
     }
     window.setTimeout(playCorrect, 150);
-    speak(LINES.hatched(dino.name));
+    speak(PHRASES.eggHatched(dino.name));
     setHatchedIds(saveHatched(hatchedIds, dino.id));
     setHatchCount((n) => n + 1);
   };
