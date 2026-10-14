@@ -1,3 +1,4 @@
+import { UiIcon } from './UiIcon';
 import './Stars.css';
 
 /** Row of 3 stars, `count` of them lit. */
@@ -17,7 +18,7 @@ export function Stars({
     <span className={`stars stars--${size} ${pop ? 'stars--pop' : ''}`} aria-label={`${count} of 3 stars`} role="img">
       {[1, 2, 3].filter((i) => showEmpty || i <= count).map((i) => (
         <span key={i} className={`stars__star ${i <= count ? 'stars__star--on' : ''}`} style={{ animationDelay: `${i * 220}ms` }}>
-          ★
+          <UiIcon name={i <= count ? 'star' : 'star-empty'} />
         </span>
       ))}
     </span>

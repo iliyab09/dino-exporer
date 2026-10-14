@@ -1,0 +1,122 @@
+.ds-stage {
+  flex: 1;
+  display: grid;
+  place-items: center;
+}
+
+.ds-dino {
+  width: min(70vw, 280px, 40svh);
+  aspect-ratio: 1;
+  padding: 6%;
+  border: var(--border-width) solid var(--color-ink);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--dino-color) 22%, white);
+  box-shadow: var(--shadow-card);
+  cursor: pointer;
+  animation: ds-enter 250ms var(--game-ease-out);
+  transition: transform 350ms var(--game-ease-in-out), opacity 350ms var(--game-ease-in-out),
+    scale var(--duration-fast) var(--game-ease-out);
+}
+
+.ds-dino:active:not(:disabled) {
+  scale: 0.97;
+}
+
+.ds-dino:disabled {
+  cursor: default;
+}
+
+.ds-dino:focus-visible {
+  outline: 4px solid var(--color-accent);
+  outline-offset: 4px;
+}
+
+.ds-dino img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+@keyframes ds-enter {
+  from { opacity: 0; transform: scale(0.9); }
+}
+
+/* Spatial feedback: the dino drops into the bin it was sorted into (plants left, meat right). */
+.ds-dino.to-herbivore {
+  transform: translate(-32%, 85%) scale(0.3);
+  opacity: 0;
+}
+
+.ds-dino.to-carnivore {
+  transform: translate(32%, 85%) scale(0.3);
+  opacity: 0;
+}
+
+.ds-bins {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+
+.ds-bin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  min-height: 132px;
+  border-radius: var(--radius);
+  font-size: var(--text-lg);
+  font-weight: 800;
+}
+
+.ds-bin-emoji {
+  font-size: 56px;
+  line-height: 1;
+}
+
+.ds-bin-herbivore {
+  background: var(--color-success-bg);
+  box-shadow: 0 6px 0 var(--color-primary-dark);
+}
+
+.ds-bin-carnivore {
+  /* Warm orange, not the pink "oops" tint, so the bin never reads as a wrong answer. */
+  background: color-mix(in srgb, var(--color-accent) 28%, white);
+  box-shadow: 0 6px 0 var(--color-accent-dark);
+}
+
+.ds-bin:active {
+  box-shadow: 0 2px 0 var(--color-shadow);
+}
+
+/* The bin "gulps" as the dino lands in it. */
+.ds-bin.gulp {
+  animation: ds-gulp 300ms var(--game-ease-out) 300ms;
+}
+
+@keyframes ds-gulp {
+  40% { transform: scale(1.08); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Keep the fade, drop the movement. */
+  .ds-dino {
+    animation: ds-fade 200ms ease;
+    transition: opacity 200ms ease;
+  }
+
+  .ds-dino.to-herbivore,
+  .ds-dino.to-carnivore {
+    transform: none;
+  }
+
+  .ds-bin.gulp {
+    animation: none;
+  }
+}
+
+@keyframes ds-fade {
+  from { opacity: 0; }
+}

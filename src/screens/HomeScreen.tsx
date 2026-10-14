@@ -1,6 +1,7 @@
 import type { CSSProperties } from 'react';
 import { BigButton } from '../components/BigButton';
 import { DinoArt } from '../components/DinoArt';
+import { UiIcon } from '../components/UiIcon';
 import { DINOS } from '../lib/registry';
 import { PHRASES } from '../data/phrases';
 import { speak } from '../lib/speech';
@@ -16,7 +17,7 @@ export function HomeScreen({
 }: {
   onLearn: () => void;
   onPlay: () => void;
-  onStickers?: () => void;
+  onStickers: () => void;
   totalStars: number;
 }) {
   const hero = DINOS[0];
@@ -63,18 +64,23 @@ export function HomeScreen({
           onClick={onLearn}
         />
         <BigButton size="lg" emoji="🎮" label="Play" say={PHRASES.play} variant="accent" onClick={onPlay} />
-      </nav>
-
-      <div className="home__footer">
         <BigButton
-          emoji="⭐"
-          label={String(totalStars)}
-          variant="sun"
-          ariaLabel={`${totalStars} stars`}
-          say={PHRASES.starCount(totalStars)}
-          onClick={() => onStickers?.()}
+          size="lg"
+          emoji={
+            <>
+              <UiIcon name="sticker-book" />
+              <span className="home__star-count">
+                {totalStars}
+                <UiIcon name="star" />
+              </span>
+            </>
+          }
+          variant="berry"
+          ariaLabel={PHRASES.stickerBookIntro}
+          say={`${PHRASES.starCount(totalStars)} ${PHRASES.stickerBookIntro}`}
+          onClick={onStickers}
         />
-      </div>
+      </nav>
     </main>
   );
 }

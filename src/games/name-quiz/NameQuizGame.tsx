@@ -15,14 +15,15 @@ const MAX_REPROMPTS = 2;
 
 const question = (d: Dino) => PHRASES.quizQuestion(d.name);
 
-export default function NameQuizGame({ dinos, speak, onFinish, onExit }: GameProps) {
-  const [rounds] = useState(() => buildRounds(dinos));
+export default function NameQuizGame({ dinos, speak, onFinish, onExit, level = 3 }: GameProps) {
+  const [rounds] = useState(() => buildRounds(dinos, level));
   const [index, setIndex] = useState(0);
   const [wrongIds, setWrongIds] = useState<string[]>([]);
   const [solved, setSolved] = useState(false);
   const [firstTry, setFirstTry] = useState(0);
-  // Bumped on every wrong tap so the shake animation replays.
-  const [shake, setShake] = useState<{ id: string; n: number } | null>(null);
+  // Wrong taps per option. Alternating two identical wobble animations replays it on every
+  // tap without remounting the button (which would also replay its entrance).
+  const [wobbles, setWobbles] = useState<Record<string, number>>({});
   // Bumped on every tap; restarts the idle re-prompt timer.
   const [taps, setTaps] = useState(0);
   const timer = useRef<number | undefined>(undefined);
@@ -72,7 +73,7 @@ export default function NameQuizGame({ dinos, speak, onFinish, onExit }: GamePro
     if (d.id !== round.target.id) {
       playWrong();
       speak(PHRASES.quizWrong(d.name, round.target.name));
-      setShake((s) => ({ id: d.id, n: (s?.n ?? 0) + 1 }));
+      setWobbles((w) => ({ ...w, [d.id]: (w[d.id] ?? 0) + 1 }));
       if (!wrongIds.includes(d.id)) setWrongIds([...wrongIds, d.id]);
       return;
     }
@@ -90,7 +91,7 @@ export default function NameQuizGame({ dinos, speak, onFinish, onExit }: GamePro
         setIndex(index + 1);
         setWrongIds([]);
         setSolved(false);
-        setShake(null);
+        setWobbles({});
       }
     }, NEXT_ROUND_DELAY_MS);
   };
@@ -120,11 +121,11 @@ export default function NameQuizGame({ dinos, speak, onFinish, onExit }: GamePro
           const classes = ['game-btn', 'nq-option'];
           if (isWrong) classes.push('wrong');
           if (isRight) classes.push('right', 'game-pop');
-          if (shake?.id === d.id) classes.push('game-wobble');
+          if (wobbles[d.id]) classes.push(wobbles[d.id] % 2 ? 'game-wobble' : 'game-wobble-alt');
           return (
             <button
               type="button"
-              key={shake?.id === d.id ? `${d.id}-${shake.n}` : d.id}
+              key={d.id}
               className={classes.join(' ')}
               aria-label={d.name}
               style={{ '--dino-color': d.color } as CSSProperties}

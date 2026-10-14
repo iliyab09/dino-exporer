@@ -1,7 +1,10 @@
-import { useEffect, useState, type CSSProperties } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from 'react';
 import { BigButton } from '../components/BigButton';
+import { DinoArt } from '../components/DinoArt';
 import { Stars } from '../components/Stars';
+import { UiIcon } from '../components/UiIcon';
 import { PHRASES } from '../data/phrases';
+import type { Dino } from '../data/types';
 import { playWin } from '../lib/sfx';
 import { speak } from '../lib/speech';
 import './RewardScreen.css';
@@ -30,22 +33,42 @@ function makeConfetti(stars: number) {
 export function RewardScreen({
   stars,
   message,
+  newStickers = [],
+  onStickers,
   onAgain,
   onDone,
 }: {
   stars: 1 | 2 | 3;
   /** Game-specific praise (e.g. no-fail games); replaces the default star line. */
   message?: string;
+  /** Stickers this round unlocked; the first one flies into the sticker book. */
+  newStickers?: Dino[];
+  onStickers?: () => void;
   onAgain: () => void;
   onDone: () => void;
 }) {
   const praise = message || PHRASES.stars[stars];
+  const sticker = newStickers[0];
+  // speak() cancels whatever is playing, so the cheer and the sticker news are one line.
+  const cheer = sticker ? `${praise} ${PHRASES.newSticker(sticker.name)}` : praise;
 
   useEffect(() => {
     playWin();
-    const t = window.setTimeout(() => speak(praise), 700);
+    const t = window.setTimeout(() => speak(cheer), 700);
     return () => window.clearTimeout(t);
-  }, [praise]);
+  }, [cheer]);
+
+  // Aim the new sticker's flight at the sticker book button (vars live on the sticker itself).
+  const stickerRef = useRef<HTMLSpanElement>(null);
+  const bookRef = useRef<HTMLSpanElement>(null);
+  useLayoutEffect(() => {
+    const el = stickerRef.current;
+    const from = el?.getBoundingClientRect();
+    const to = bookRef.current?.getBoundingClientRect();
+    if (!el || !from || !to) return;
+    el.style.setProperty('--fly-x', `${to.left + to.width / 2 - (from.left + from.width / 2)}px`);
+    el.style.setProperty('--fly-y', `${to.top + to.height / 2 - (from.top + from.height / 2)}px`);
+  }, [sticker]);
 
   const [confetti] = useState(() => makeConfetti(stars));
 
@@ -76,7 +99,25 @@ export function RewardScreen({
         {message && <span className="reward__message">{message}</span>}
       </button>
 
+      {sticker && (
+        <span ref={stickerRef} className="reward__sticker" aria-hidden="true">
+          <DinoArt dino={sticker} className="reward__sticker-art" decorative />
+        </span>
+      )}
+
       <nav className="reward__actions">
+        {sticker && onStickers && (
+          <span ref={bookRef} className="reward__book">
+            <BigButton
+              size="lg"
+              emoji={<UiIcon name="sticker-book" />}
+              ariaLabel={PHRASES.newSticker(sticker.name)}
+              say={PHRASES.newSticker(sticker.name)}
+              variant="berry"
+              onClick={onStickers}
+            />
+          </span>
+        )}
         <BigButton size="lg" emoji="🔁" ariaLabel={PHRASES.playAgain} say={PHRASES.playAgain} variant="accent" onClick={onAgain} />
         <BigButton size="lg" emoji="✅" ariaLabel={PHRASES.done} say={PHRASES.done} variant="primary" onClick={onDone} />
       </nav>

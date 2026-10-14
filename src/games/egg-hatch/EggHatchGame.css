@@ -1,11 +1,12 @@
 .eh-stage {
+  /* Pixel's egg fills ~60% of its 200x200 box, so the box is drawn large. */
+  --eh-size: min(92vw, 360px, 52svh);
   flex: 1;
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 360px;
 }
 
 .eh-egg {
@@ -13,8 +14,14 @@
   border: none;
   background: none;
   cursor: pointer;
-  width: min(70vw, 280px);
-  transform-origin: 50% 90%;
+  width: var(--eh-size);
+  transform-origin: 50% 88%;
+  transition: scale var(--duration-fast) var(--game-ease-out);
+}
+
+/* Press squish; uses `scale` so it doesn't fight the wobble's `transform`. */
+.eh-egg:active {
+  scale: 0.97;
 }
 
 .eh-egg:focus-visible,
@@ -24,23 +31,12 @@
   border-radius: var(--radius);
 }
 
-.eh-egg-svg,
+.eh-egg-img,
 .eh-shell-bottom {
   display: block;
   width: 100%;
   height: auto;
-  overflow: visible;
-}
-
-.eh-shell {
-  fill: color-mix(in srgb, var(--dino-color) 30%, white);
-  stroke: var(--color-ink);
-  stroke-width: 5;
-  stroke-linejoin: round;
-}
-
-.eh-spot {
-  fill: color-mix(in srgb, var(--dino-color) 60%, white);
+  pointer-events: none;
 }
 
 .eh-crack {
@@ -60,21 +56,49 @@
   85% { transform: rotate(calc(var(--wobble) * 0.25)); }
 }
 
-.eh-egg.wobble {
+@keyframes eh-wobble-0 {
+  0%, 100% { transform: rotate(0); }
+  20% { transform: rotate(calc(var(--wobble) * -1)); }
+  45% { transform: rotate(var(--wobble)); }
+  70% { transform: rotate(calc(var(--wobble) * -0.5)); }
+  85% { transform: rotate(calc(var(--wobble) * 0.25)); }
+}
+
+.eh-egg.wobble-0 {
+  animation: eh-wobble-0 0.6s ease-in-out;
+}
+
+.eh-egg.wobble-1 {
   animation: eh-wobble 0.6s ease-in-out;
+}
+
+/* Stack the egg stages; only the current one shows. */
+.eh-egg {
+  display: grid;
+}
+
+.eh-egg-img {
+  grid-area: 1 / 1;
+  opacity: 0;
+}
+
+.eh-egg-img.on {
+  opacity: 1;
 }
 
 .eh-dino {
   position: relative;
   z-index: 1;
-  width: min(62vw, 240px);
+  width: calc(var(--eh-size) * 0.8);
   aspect-ratio: 1;
-  margin-bottom: -70px;
+  /* Feet sit inside the shell: the shell's crack line is ~half way down its 200x200 box. */
+  margin-bottom: calc(var(--eh-size) * -0.62);
   padding: 0;
   border: none;
   background: none;
   cursor: pointer;
-  animation: eh-pop 0.7s var(--ease-bounce) both;
+  animation: eh-pop 0.55s var(--ease-bounce) both;
+  transition: scale var(--duration-fast) var(--game-ease-out);
 }
 
 .eh-dino img {
@@ -88,16 +112,19 @@
   scale: 0.95;
 }
 
+/* The dino rises out from behind the shell (the shell sits on top), overshooting a little. */
 @keyframes eh-pop {
-  0% { transform: translateY(60%) scale(0.3); opacity: 0; }
-  60% { opacity: 1; }
+  0% { transform: translateY(45%) scale(0.85); opacity: 0; }
+  30% { opacity: 1; }
   100% { transform: translateY(0) scale(1); opacity: 1; }
 }
 
 .eh-shell-bottom {
   position: relative;
   z-index: 2;
-  width: min(70vw, 280px);
+  width: var(--eh-size);
+  /* Trim the empty bottom of the 200x200 box (egg ends at y=184). */
+  margin-bottom: calc(var(--eh-size) * -0.07);
   pointer-events: none;
 }
 
@@ -129,8 +156,17 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .eh-egg.wobble,
-  .eh-dino {
+  .eh-egg.wobble-0,
+  .eh-egg.wobble-1 {
     animation: none;
   }
+
+  /* Fade in, no rise. */
+  .eh-dino {
+    animation: eh-fade 200ms ease both;
+  }
+}
+
+@keyframes eh-fade {
+  from { opacity: 0; }
 }
