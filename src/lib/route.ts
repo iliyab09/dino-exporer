@@ -7,7 +7,15 @@ export type Route =
   | { name: 'dino'; id: string }
   | { name: 'play' }
   | { name: 'game'; id: string }
-  | { name: 'reward'; gameId: string; stars: 1 | 2 | 3; correct: number; total: number };
+  | {
+      name: 'reward';
+      gameId: string;
+      stars: 1 | 2 | 3;
+      correct: number;
+      total: number;
+      /** Game-specific praise shown and spoken instead of the default star line. */
+      message?: string;
+    };
 
 export const HOME: Route = { name: 'home' };
 
