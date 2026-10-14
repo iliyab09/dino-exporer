@@ -2,6 +2,7 @@ import type { CSSProperties } from 'react';
 import { BigButton } from '../components/BigButton';
 import { DinoArt } from '../components/DinoArt';
 import { DINOS } from '../lib/registry';
+import { PHRASES } from '../data/phrases';
 import { speak } from '../lib/speech';
 import './HomeScreen.css';
 
@@ -27,7 +28,7 @@ export function HomeScreen({
           type="button"
           className="home__title"
           aria-label={TITLE}
-          onClick={() => speak('Dino Explorer! Tap the book to learn. Tap the game to play.')}
+          onClick={() => speak(PHRASES.homeIntro)}
         >
           {TITLE.split('').map((ch, i) =>
             ch === ' ' ? (
@@ -50,8 +51,8 @@ export function HomeScreen({
       </section>
 
       <nav className="home__actions">
-        <BigButton size="lg" emoji="📖" label="Learn" say="Learn" variant="primary" onClick={onLearn} />
-        <BigButton size="lg" emoji="🎮" label="Play" say="Play" variant="accent" onClick={onPlay} />
+        <BigButton size="lg" emoji="📖" label="Learn" say={PHRASES.learn} variant="primary" onClick={onLearn} />
+        <BigButton size="lg" emoji="🎮" label="Play" say={PHRASES.play} variant="accent" onClick={onPlay} />
       </nav>
 
       <div className="home__footer">

@@ -1,6 +1,7 @@
 import { useEffect, useState, type CSSProperties } from 'react';
 import { BigButton } from '../components/BigButton';
 import { Stars } from '../components/Stars';
+import { PHRASES } from '../data/phrases';
 import { playWin } from '../lib/sfx';
 import { speak } from '../lib/speech';
 import './RewardScreen.css';
@@ -12,12 +13,6 @@ const CONFETTI_COLORS = [
   'var(--color-primary)',
   'var(--color-accent)',
 ];
-
-const CHEERS: Record<1 | 2 | 3, string> = {
-  1: 'Good try! You got one star!',
-  2: 'Great job! You got two stars!',
-  3: 'Wow! Three stars! You are a dino expert!',
-};
 
 /** Random confetti pieces; more stars, bigger party. */
 function makeConfetti(stars: number) {
@@ -43,7 +38,7 @@ export function RewardScreen({
 }) {
   useEffect(() => {
     playWin();
-    const t = window.setTimeout(() => speak(CHEERS[stars]), 700);
+    const t = window.setTimeout(() => speak(PHRASES.stars[stars]), 700);
     return () => window.clearTimeout(t);
   }, [stars]);
 
@@ -73,15 +68,15 @@ export function RewardScreen({
       <button
         type="button"
         className="reward__stars"
-        aria-label={CHEERS[stars]}
-        onClick={() => speak(CHEERS[stars])}
+        aria-label={PHRASES.stars[stars]}
+        onClick={() => speak(PHRASES.stars[stars])}
       >
         <Stars count={stars} size="lg" pop />
       </button>
 
       <nav className="reward__actions">
-        <BigButton size="lg" emoji="🔁" ariaLabel="Play again" say="Play again" variant="accent" onClick={onAgain} />
-        <BigButton size="lg" emoji="✅" ariaLabel="Done" say="Done" variant="primary" onClick={onDone} />
+        <BigButton size="lg" emoji="🔁" ariaLabel={PHRASES.playAgain} say={PHRASES.playAgain} variant="accent" onClick={onAgain} />
+        <BigButton size="lg" emoji="✅" ariaLabel={PHRASES.done} say={PHRASES.done} variant="primary" onClick={onDone} />
       </nav>
     </main>
   );

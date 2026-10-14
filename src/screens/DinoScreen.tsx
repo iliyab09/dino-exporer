@@ -1,12 +1,19 @@
 import { BigButton } from '../components/BigButton';
 import { DinoArt } from '../components/DinoArt';
 import { TopBar } from '../components/TopBar';
+import { PHRASES } from '../data/phrases';
 import type { Dino } from '../data/types';
 import { playTap } from '../lib/sfx';
 import { sizeComparison } from '../lib/size';
 import { speak } from '../lib/speech';
 import { syllableSounds } from '../lib/syllables';
 import './DinoScreen.css';
+
+const DIET_EMOJI: Record<Dino['diet'], string> = {
+  herbivore: '🌿',
+  carnivore: '🍖',
+  omnivore: '🍽️',
+};
 
 export function DinoScreen({
   dino,
@@ -82,6 +89,36 @@ export function DinoScreen({
           ariaLabel="Hear a fun fact"
           sound={false}
           onClick={() => speak(dino.funFact)}
+        />
+      </div>
+
+      <div className="dino__facts">
+        <BigButton
+          size="lg"
+          round
+          variant="primary"
+          emoji={DIET_EMOJI[dino.diet]}
+          ariaLabel={PHRASES.diet[dino.diet]}
+          say={PHRASES.diet[dino.diet]}
+          onClick={() => {}}
+        />
+        <BigButton
+          size="lg"
+          round
+          variant="sun"
+          emoji="💡"
+          ariaLabel={PHRASES.meaning(dino.name, dino.meaning)}
+          say={PHRASES.meaning(dino.name, dino.meaning)}
+          onClick={() => {}}
+        />
+        <BigButton
+          size="lg"
+          round
+          variant="berry"
+          emoji="🌋"
+          ariaLabel={PHRASES.period[dino.period]}
+          say={PHRASES.period[dino.period]}
+          onClick={() => {}}
         />
       </div>
 

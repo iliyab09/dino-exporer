@@ -1,6 +1,7 @@
 import { BigButton } from '../components/BigButton';
 import { Stars } from '../components/Stars';
 import { TopBar } from '../components/TopBar';
+import { PHRASES } from '../data/phrases';
 import type { GameEntry } from '../lib/registry';
 import './PlayScreen.css';
 
@@ -28,7 +29,7 @@ export function PlayScreen({
           emoji="🥚"
           variant="sun"
           ariaLabel="Games are hatching soon"
-          say="The games are still hatching. Come back soon!"
+          say={PHRASES.gamesHatching}
           onClick={() => {}}
         />
       ) : (

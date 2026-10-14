@@ -1,5 +1,7 @@
 import { DinoCard } from '../components/DinoCard';
 import { TopBar } from '../components/TopBar';
+import { BigButton } from '../components/BigButton';
+import { PHRASES } from '../data/phrases';
 import type { Dino } from '../data/types';
 import { speak } from '../lib/speech';
 import './LearnScreen.css';
@@ -16,7 +18,7 @@ export function LearnScreen({
   return (
     <main className="screen learn">
       <TopBar onBack={onBack}>
-        <span aria-hidden="true">📖</span>
+        <BigButton round variant="secondary" emoji="📖" ariaLabel={PHRASES.learnHint} say={PHRASES.learnHint} onClick={() => {}} />
       </TopBar>
       <ul className="learn__grid">
         {dinos.map((dino) => (

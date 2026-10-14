@@ -112,6 +112,12 @@
   transform: translateY(-50%) rotate(45deg);
 }
 
+.dino__facts {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-4);
+}
+
 .dino__size {
   display: flex;
   align-items: center;
