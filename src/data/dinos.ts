@@ -219,7 +219,7 @@ export const DINOS: Dino[] = [
     diet: 'omnivore',
     period: 'Cretaceous',
     lengthMeters: 1.8,
-    funFact: 'Oviraptor means egg thief, but it was a good parent that sat on its own eggs!',
+    funFact: 'Oviraptor means egg thief, but it was really guarding its own eggs, not stealing!',
     color: '#EC407A',
     tier: 3,
   },
