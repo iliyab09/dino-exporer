@@ -16,6 +16,20 @@
   user-select: none;
   -webkit-user-select: none;
   -webkit-tap-highlight-color: transparent;
+  /* Strong curves for game motion (theme.css only has --ease-bounce). */
+  --game-ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --game-ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+/* Feel native on phones: no 300ms double-tap wait, no long-press callout, no image drag ghost. */
+.game button {
+  touch-action: manipulation;
+  -webkit-touch-callout: none;
+}
+
+.game img {
+  -webkit-touch-callout: none;
+  -webkit-user-drag: none;
 }
 
 .game-top {
@@ -30,8 +44,8 @@
   font: inherit;
   color: inherit;
   cursor: pointer;
-  transition: transform var(--duration-fast), box-shadow var(--duration-fast),
-    background-color var(--duration-med), opacity var(--duration-med);
+  transition: transform var(--duration-fast) var(--game-ease-out), box-shadow var(--duration-fast) var(--game-ease-out),
+    background-color var(--duration-med) ease, opacity var(--duration-med) ease, border-color var(--duration-med) ease;
 }
 
 .game-btn:focus-visible {
@@ -95,6 +109,15 @@
   83% { transform: rotate(-4deg); }
 }
 
+@keyframes game-wobble-alt {
+  0%, 100% { transform: rotate(0); }
+  17% { transform: rotate(-4deg); }
+  33% { transform: rotate(4deg); }
+  50% { transform: rotate(-4deg); }
+  67% { transform: rotate(4deg); }
+  83% { transform: rotate(-4deg); }
+}
+
 @keyframes game-pop {
   0% { transform: scale(1); }
   50% { transform: scale(1.08); }
@@ -105,12 +128,18 @@
   animation: game-wobble 0.5s ease-in-out;
 }
 
+/* Same wobble under another name: toggle between the two to replay it without a remount. */
+.game-wobble-alt {
+  animation: game-wobble-alt 0.5s ease-in-out;
+}
+
 .game-pop {
-  animation: game-pop 0.5s var(--ease-bounce) forwards;
+  animation: game-pop 0.4s var(--ease-bounce) forwards;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .game-wobble,
+  .game-wobble-alt,
   .game-pop {
     animation: none;
   }

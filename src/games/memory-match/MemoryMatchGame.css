@@ -36,7 +36,8 @@
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
-  transition: transform var(--duration-med) var(--ease-bounce);
+  /* Crisp flip; scale is the press squish. */
+  transition: transform 300ms var(--game-ease-out), scale var(--duration-fast) var(--game-ease-out);
 }
 
 .mm-card:active .mm-inner {
@@ -96,5 +97,10 @@
 @media (prefers-reduced-motion: reduce) {
   .mm-card.matched .mm-inner {
     animation: none;
+  }
+
+  /* Faces swap without the 3D turn. */
+  .mm-inner {
+    transition: none;
   }
 }
