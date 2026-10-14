@@ -1,10 +1,13 @@
 // Turns a dino's size in meters into something a 5-year-old can picture:
-// a row of cars (or beds for small dinos), plus a sentence to speak.
+// a row of cats, beds or cars, plus a sentence to speak.
 
 import type { Dino } from '../data/types';
 
-const CAR_METERS = 4.5;
-const BED_METERS = 2;
+const UNITS = [
+  { upTo: 1.2, meters: 0.5, emoji: '🐈', name: 'cat' },
+  { upTo: 7, meters: 2, emoji: '🛏️', name: 'bed' },
+  { upTo: Infinity, meters: 4.5, emoji: '🚗', name: 'car' },
+] as const;
 const MAX_ICONS = 6;
 
 export interface SizeComparison {
@@ -15,11 +18,10 @@ export interface SizeComparison {
 
 export function sizeComparison(dino: Pick<Dino, 'lengthMeters' | 'sizeKind'>): SizeComparison {
   const m = dino.lengthMeters;
-  const small = m < 3;
-  const emoji = small ? '🛏️' : '🚗';
-  const unit = small ? 'bed' : 'car';
-  const count = Math.min(MAX_ICONS, Math.max(1, Math.round(m / (small ? BED_METERS : CAR_METERS))));
-  const things = count === 1 ? `one ${unit}` : `${count} ${unit}s`;
+  const unit = UNITS.find((u) => m <= u.upTo) ?? UNITS[UNITS.length - 1];
+  const emoji = unit.emoji;
+  const count = Math.min(MAX_ICONS, Math.max(1, Math.round(m / unit.meters)));
+  const things = count === 1 ? `one ${unit.name}` : `${count} ${unit.name}s`;
   const sentence =
     dino.sizeKind === 'wingspan'
       ? `Its wings were as wide as ${things}!`
