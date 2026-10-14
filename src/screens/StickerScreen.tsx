@@ -4,7 +4,7 @@ import { Stars } from '../components/Stars';
 import { TopBar } from '../components/TopBar';
 import { PHRASES } from '../data/phrases';
 import type { Dino } from '../data/types';
-import { playTap, playWrong } from '../lib/sfx';
+import { playTap } from '../lib/sfx';
 import { speak } from '../lib/speech';
 import { starsTowardNext, stickersUnlocked } from '../lib/stickers';
 import './StickerScreen.css';
@@ -50,13 +50,9 @@ export function StickerScreen({
                 className={`stickers__sticker ${owned ? 'stickers__sticker--owned' : 'stickers__sticker--locked'}`}
                 aria-label={owned ? dino.name : PHRASES.stickerLocked}
                 onClick={() => {
-                  if (owned) {
-                    playTap();
-                    speak(dino.name);
-                  } else {
-                    playWrong();
-                    speak(PHRASES.stickerLocked);
-                  }
+                  // Curiosity is not a mistake: same friendly tap for locked stickers.
+                  playTap();
+                  speak(owned ? dino.name : PHRASES.stickerLocked);
                 }}
               >
                 <DinoArt dino={dino} className="stickers__art" decorative />
