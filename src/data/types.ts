@@ -16,8 +16,10 @@ export interface Dino {
   meaning: string;
   diet: Diet;
   period: Period;
-  /** Approximate adult length in meters */
+  /** Approximate adult size in meters (body length, or wingspan when sizeKind is 'wingspan') */
   lengthMeters: number;
+  /** What lengthMeters measures. Defaults to 'length'. Flyers like Pteranodon use 'wingspan'. */
+  sizeKind?: 'length' | 'wingspan';
   /** One short fun fact, max ~90 characters, reading level ~age 5 */
   funFact: string;
   /** Primary theme color for this dino's card (hex) */
