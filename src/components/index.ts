@@ -5,4 +5,5 @@ export type { DinoCardProps } from './DinoCard';
 export { DinoArt } from './DinoArt';
 export { TopBar } from './TopBar';
 export { Stars } from './Stars';
+export { UiIcon } from './UiIcon';
 export { ErrorBoundary } from './ErrorBoundary';
