@@ -3,6 +3,7 @@
   --dino-color: var(--color-primary);
   position: relative;
   width: 100%;
+  container-type: inline-size;
 }
 
 .dino-card__main {
@@ -55,34 +56,17 @@
   display: block;
   min-height: var(--tap-min);
   padding: var(--space-3) var(--space-2);
-  font-size: var(--text-md);
+  /* Never cut a name off: wrap at syllable soft hyphens (see hyphenateName), up to 2 lines. */
+  font-size: min(var(--text-card), 13cqi);
   font-weight: 800;
   line-height: 1.1;
   text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  hyphens: manual;
+  overflow-wrap: anywhere;
 }
 
 .dino-card--lg .dino-card__name {
-  font-size: var(--text-lg);
-}
-
-/* Same box as the art panel, so the speaker can sit on its bottom-right corner. */
-.dino-card__speak-anchor {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  aspect-ratio: 1 / 0.85;
-  pointer-events: none;
-}
-
-.dino-card__speak {
-  position: absolute;
-  right: calc(-1 * var(--space-2));
-  bottom: calc(-1 * var(--space-3));
-  pointer-events: auto;
+  font-size: min(var(--text-lg), 12cqi);
 }
 
 .dino-card--correct .dino-card__main {

@@ -1,7 +1,7 @@
 import type { CSSProperties } from 'react';
 import type { Dino } from '../data/types';
 import { playTap } from '../lib/sfx';
-import { BigButton } from './BigButton';
+import { hyphenateName } from '../lib/syllables';
 import { DinoArt } from './DinoArt';
 import './DinoCard.css';
 
@@ -9,8 +9,6 @@ export interface DinoCardProps {
   dino: Dino;
   /** Tap on the card. The caller decides whether to speak / navigate. */
   onClick?: () => void;
-  /** When given, shows the round 🔊 button that calls it (usually `() => speak(dino.name)`). */
-  onSpeak?: () => void;
   /** Show the name strip under the art (default true). Quiz games may hide it. */
   showName?: boolean;
   size?: 'md' | 'lg';
@@ -19,11 +17,10 @@ export interface DinoCardProps {
   disabled?: boolean;
 }
 
-/** Dino tile per DESIGN.md: color panel with art, name strip, optional speaker button. */
+/** Dino tile per DESIGN.md: tinted color panel with art, name strip underneath. */
 export function DinoCard({
   dino,
   onClick,
-  onSpeak,
   showName = true,
   size = 'md',
   state = 'idle',
@@ -45,23 +42,10 @@ export function DinoCard({
         }}
       >
         <span className="dino-card__panel">
-          <DinoArt dino={dino} className="dino-card__art" />
+          <DinoArt dino={dino} className="dino-card__art" decorative />
         </span>
-        {showName && <span className="dino-card__name">{dino.name}</span>}
+        {showName && <span className="dino-card__name">{hyphenateName(dino)}</span>}
       </button>
-      {onSpeak && (
-        <span className="dino-card__speak-anchor">
-          <BigButton
-            className="dino-card__speak"
-            round
-            variant="secondary"
-            emoji="🔊"
-            ariaLabel={`Say ${dino.name}`}
-            sound={false}
-            onClick={onSpeak}
-          />
-        </span>
-      )}
     </div>
   );
 }
