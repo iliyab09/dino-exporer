@@ -54,7 +54,7 @@ In words, top to bottom:
 1. Card: white surface, 4px ink border, `--radius`, `--shadow-card`. Square-ish; phone gallery = 2 columns, tablet = 3-4 columns (`grid-template-columns: repeat(auto-fill, minmax(150px, 1fr))`).
 2. Art panel: top ~70% of the card, background = `dino.color`, the SVG centered with ~8% padding, `object-fit: contain`. Rounded top corners only.
 3. Name strip: bottom ~30%, dino name in `--font-display` at `--text-card` on gallery cards (`--text-xl` on the detail screen), centered. Allow up to 2 lines (`overflow-wrap: anywhere; line-height: 1.1`), no ellipsis: kids match the whole word shape. Must fit "Pachycephalosaurus" at 375px.
-4. Speaker button: 64px round sky button overlapping the bottom-right corner of the art panel. Tap = say the name. Tapping the whole card also says the name and opens detail.
+4. No speaker button on gallery cards: tapping the card says the name and opens the detail screen. (Every dino faces right with its head top-right, so an overlaid button would cover a face; QA #3.) The detail screen has the big 🔊 next to the name.
 5. Detail screen: art large (up to 320px), name + pronunciation chips (one chip per syllable, each tappable, 64px tall), fun fact in a speech bubble with its own speaker button.
 
 ## Dino art rules (public/dinos/<id>.svg)
