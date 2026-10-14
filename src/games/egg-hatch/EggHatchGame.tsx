@@ -3,6 +3,7 @@ import { PHRASES } from '../../data/phrases';
 import type { Dino, GameProps } from '../../data/types';
 import DinoImage from '../shared/DinoImage';
 import { playCorrect, playCrack } from '../shared/sound';
+import { dinosForLevel } from '../shared/pickDinos';
 import { TAPS_TO_HATCH, loadHatched, pickNextDino, saveHatched } from './hatchery';
 import '../shared/game.css';
 import './EggHatchGame.css';
@@ -34,9 +35,11 @@ function ShellBottom() {
   );
 }
 
-export default function EggHatchGame({ dinos, speak, onFinish, onExit }: GameProps) {
+export default function EggHatchGame({ dinos, speak, onFinish, onExit, level = 3 }: GameProps) {
+  // Eggs only hold dinos for the kid's level; new ones appear as the level grows.
+  const [pool] = useState(() => dinosForLevel(dinos, level));
   const [hatchedIds, setHatchedIds] = useState(loadHatched);
-  const [dino, setDino] = useState<Dino | undefined>(() => pickNextDino(dinos, hatchedIds));
+  const [dino, setDino] = useState<Dino | undefined>(() => pickNextDino(pool, hatchedIds));
   const [taps, setTaps] = useState(0);
   const [hatchCount, setHatchCount] = useState(0);
   const speakRef = useRef(speak);
@@ -93,7 +96,7 @@ export default function EggHatchGame({ dinos, speak, onFinish, onExit }: GamePro
 
   const another = () => {
     setTaps(0);
-    setDino(pickNextDino(dinos, hatchedIds, dino.id));
+    setDino(pickNextDino(pool, hatchedIds, dino.id));
   };
 
   const style = {

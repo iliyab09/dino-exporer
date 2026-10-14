@@ -1,4 +1,5 @@
 import type { Dino } from '../../data/types';
+import { pickDinos, type Level } from '../shared/pickDinos';
 import { shuffle } from '../shared/util';
 
 export const MAX_PAIRS = 6;
@@ -9,9 +10,9 @@ export interface Card {
   dino: Dino;
 }
 
-/** Shuffled deck with two cards for each of up to MAX_PAIRS random dinos. */
-export function buildDeck(dinos: Dino[], pairs = MAX_PAIRS): Card[] {
-  const picked = shuffle(dinos).slice(0, pairs);
+/** Shuffled deck with two cards for each of up to MAX_PAIRS level-appropriate dinos. */
+export function buildDeck(dinos: Dino[], level: Level = 3, pairs = MAX_PAIRS): Card[] {
+  const picked = pickDinos(dinos, level, pairs);
   return shuffle(picked.flatMap((dino) => [{ key: `${dino.id}-a`, dino }, { key: `${dino.id}-b`, dino }]));
 }
 

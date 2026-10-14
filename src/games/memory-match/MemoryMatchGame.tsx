@@ -10,8 +10,8 @@ import './MemoryMatchGame.css';
 const MISMATCH_FLIP_BACK_MS = 1300;
 const FINISH_DELAY_MS = 2000;
 
-export default function MemoryMatchGame({ dinos, speak, onFinish, onExit }: GameProps) {
-  const [deck] = useState(() => buildDeck(dinos));
+export default function MemoryMatchGame({ dinos, speak, onFinish, onExit, level = 3 }: GameProps) {
+  const [deck] = useState(() => buildDeck(dinos, level));
   /** Indexes of face-up cards that are not matched yet (0, 1 or 2). */
   const [open, setOpen] = useState<number[]>([]);
   const [matched, setMatched] = useState<string[]>([]);

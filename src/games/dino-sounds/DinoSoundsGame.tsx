@@ -16,8 +16,8 @@ const BINS: { diet: Snack; emoji: string; label: string }[] = [
 const NEXT_ROUND_DELAY_MS = 2200;
 const IDLE_REPROMPT_MS = 6000;
 
-export default function DinoSoundsGame({ dinos, speak, onFinish, onExit }: GameProps) {
-  const [rounds] = useState(() => buildSortRounds(dinos));
+export default function DinoSoundsGame({ dinos, speak, onFinish, onExit, level = 3 }: GameProps) {
+  const [rounds] = useState(() => buildSortRounds(dinos, level));
   const [index, setIndex] = useState(0);
   /** Bin the dino is flying into once answered correctly. */
   const [fed, setFed] = useState<Snack | null>(null);
