@@ -1,0 +1,48 @@
+.long-press {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: var(--tap-min);
+  height: var(--tap-min);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-ink-soft);
+  font-size: var(--text-md);
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.long-press:focus-visible {
+  outline: 4px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+.long-press__ring {
+  position: absolute;
+  inset: 4px;
+  width: calc(100% - 8px);
+  height: calc(100% - 8px);
+  transform: rotate(-90deg);
+  pointer-events: none;
+}
+
+.long-press__ring circle {
+  fill: none;
+  stroke: var(--color-accent);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+}
+
+/* The ring fills for exactly as long as the hold needs; releasing snaps it back. */
+.long-press--holding .long-press__ring circle {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset var(--hold-ms) linear;
+}
+
+.long-press__content {
+  pointer-events: none;
+}

@@ -92,6 +92,52 @@
   40% { transform: scale(1.15) rotate(-6deg); }
 }
 
+/* Level up: the new badge pops in over a slowly turning star burst. */
+.reward__level {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 150px;
+  height: 150px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.reward__level:focus-visible {
+  outline: 4px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 50%;
+}
+
+.reward__level .ui-icon {
+  grid-area: 1 / 1;
+}
+
+.reward__level-burst {
+  width: 150px;
+  height: 150px;
+  /* Opacity-only entrance: the turn animation owns transform. */
+  animation: reward-sticker-fade 500ms ease-out 1.2s both, reward-burst-turn 12s linear 1.2s infinite;
+}
+
+.reward__level-badge {
+  width: 96px;
+  height: 96px;
+  animation: reward-level-in 500ms var(--ease-bounce) 1.4s both;
+}
+
+@keyframes reward-level-in {
+  from { opacity: 0; transform: scale(0.6); }
+}
+
+@keyframes reward-burst-turn {
+  to { transform: rotate(360deg); }
+}
+
 .reward__actions {
   position: relative;
   z-index: 1;
@@ -140,4 +186,6 @@
   /* No flight: the sticker just fades in and stays next to the book. */
   .reward__sticker { animation: reward-sticker-fade 200ms ease 0.8s both; }
   .reward__book { animation: none; }
+  .reward__level-burst,
+  .reward__level-badge { animation: reward-sticker-fade 200ms ease 1.2s both; }
 }

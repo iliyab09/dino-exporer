@@ -1,0 +1,57 @@
+/* A reading page for adults: calm, body-size text, comfortable line length. */
+.grownups__page {
+  width: min(100%, 680px);
+  margin: 0 auto;
+  padding: var(--space-4);
+  border: var(--border-width) solid var(--color-ink);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+  font-size: var(--text-md);
+  line-height: 1.5;
+  /* Content, not controls: grown-ups may want to copy it. */
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+.grownups__title {
+  margin: 0 0 var(--space-3);
+  font-size: var(--text-xl);
+}
+
+.grownups__intro {
+  margin: 0 0 var(--space-4);
+}
+
+.grownups__section {
+  margin-top: var(--space-4);
+}
+
+.grownups__section h2 {
+  margin: 0 0 var(--space-2);
+  font-size: var(--text-lg);
+}
+
+.grownups__section ul {
+  margin: 0;
+  padding-left: 1.2em;
+}
+
+.grownups__section li + li {
+  margin-top: var(--space-1);
+}
+
+.grownups__reset {
+  padding-top: var(--space-4);
+  border-top: 2px dashed color-mix(in srgb, var(--color-ink) 25%, transparent);
+}
+
+.grownups__reset .big-button {
+  font-size: var(--text-md);
+}
+
+.grownups__confirm {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}

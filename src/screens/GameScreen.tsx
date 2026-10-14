@@ -9,11 +9,13 @@ import { speak } from '../lib/speech';
 export function GameScreen({
   game,
   dinos,
+  level,
   onFinish,
   onExit,
 }: {
   game: GameEntry;
   dinos: Dino[];
+  level: GameProps['level'];
   onFinish: GameProps['onFinish'];
   onExit: () => void;
 }) {
@@ -26,7 +28,7 @@ export function GameScreen({
           <BigButton size="lg" emoji="🙈" variant="secondary" ariaLabel="Back" say={PHRASES.oops} onClick={onExit} />
         }
       >
-        <Game dinos={dinos} speak={speak} onFinish={onFinish} onExit={onExit} />
+        <Game dinos={dinos} level={level} speak={speak} onFinish={onFinish} onExit={onExit} />
       </ErrorBoundary>
     </main>
   );

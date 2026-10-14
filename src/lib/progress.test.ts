@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { bestStars, loadProgress, recordStars, resetProgress } from './progress';
+import { bestStars, levelFor, loadProgress, recordStars, resetProgress } from './progress';
 
 function memoryStorage() {
   const data = new Map<string, string>();
@@ -60,5 +60,16 @@ describe('progress', () => {
     recordStars('name-quiz', 3);
     resetProgress();
     expect(loadProgress().totalStars).toBe(0);
+  });
+});
+
+describe('levelFor', () => {
+  it('is level 1 until 6 stars, level 2 until 15, then level 3', () => {
+    expect(levelFor(0)).toBe(1);
+    expect(levelFor(5)).toBe(1);
+    expect(levelFor(6)).toBe(2);
+    expect(levelFor(14)).toBe(2);
+    expect(levelFor(15)).toBe(3);
+    expect(levelFor(999)).toBe(3);
   });
 });

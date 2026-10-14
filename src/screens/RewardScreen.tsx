@@ -34,6 +34,7 @@ export function RewardScreen({
   stars,
   message,
   newStickers = [],
+  levelUp,
   onStickers,
   onAgain,
   onDone,
@@ -43,6 +44,8 @@ export function RewardScreen({
   message?: string;
   /** Stickers this round unlocked; the first one flies into the sticker book. */
   newStickers?: Dino[];
+  /** The level this round reached, if it went up. */
+  levelUp?: 2 | 3;
   onStickers?: () => void;
   onAgain: () => void;
   onDone: () => void;
@@ -50,7 +53,9 @@ export function RewardScreen({
   const praise = message || PHRASES.stars[stars];
   const sticker = newStickers[0];
   // speak() cancels whatever is playing, so the cheer and the sticker news are one line.
-  const cheer = sticker ? `${praise} ${PHRASES.newSticker(sticker.name)}` : praise;
+  const cheer = [praise, sticker && PHRASES.newSticker(sticker.name), levelUp && PHRASES.levelUp[levelUp]]
+    .filter(Boolean)
+    .join(' ');
 
   useEffect(() => {
     playWin();
@@ -98,6 +103,18 @@ export function RewardScreen({
         <Stars count={stars} size="lg" pop showEmpty={!message} />
         {message && <span className="reward__message">{message}</span>}
       </button>
+
+      {levelUp && (
+        <button
+          type="button"
+          className="reward__level"
+          aria-label={PHRASES.levelUp[levelUp]}
+          onClick={() => speak(PHRASES.levelUp[levelUp])}
+        >
+          <UiIcon name="levelup-burst" className="reward__level-burst" />
+          <UiIcon name={`badge-level-${levelUp}`} className="reward__level-badge" />
+        </button>
+      )}
 
       {sticker && (
         <span ref={stickerRef} className="reward__sticker" aria-hidden="true">

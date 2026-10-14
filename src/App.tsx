@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
 import { DINOS, GAMES } from './lib/registry';
-import { loadProgress, recordStars, type Progress } from './lib/progress';
+import { levelFor, loadProgress, recordStars, resetProgress, type Progress } from './lib/progress';
 import { HOME, isHistoryEntry, parentOf, type HistoryEntry, type Route } from './lib/route';
 import { stopSpeaking } from './lib/speech';
 import { newlyUnlocked } from './lib/stickers';
 import { DinoScreen } from './screens/DinoScreen';
 import { GameScreen } from './screens/GameScreen';
+import { GrownUpsScreen } from './screens/GrownUpsScreen';
 import { HomeScreen } from './screens/HomeScreen';
 import { LearnScreen } from './screens/LearnScreen';
 import { PlayScreen } from './screens/PlayScreen';
@@ -64,6 +65,7 @@ export default function App() {
           onLearn={() => go({ name: 'learn' })}
           onPlay={() => go({ name: 'play' })}
           onStickers={() => go({ name: 'stickers' })}
+          onGrownUps={() => go({ name: 'grownups' })}
         />
       );
 
@@ -108,12 +110,15 @@ export default function App() {
           game={game}
           dinos={DINOS}
           onExit={back}
+          level={levelFor(progress.totalStars)}
           onFinish={({ stars, correct, total, message }) => {
             const before = progress.totalStars;
             const next = recordStars(game.id, stars);
             setProgress(next);
             const newStickers = newlyUnlocked(DINOS, before, next.totalStars).map((d) => d.id);
-            go({ name: 'reward', gameId: game.id, stars, correct, total, message, newStickers }, true);
+            const newLevel = levelFor(next.totalStars);
+            const levelUp = newLevel > levelFor(before) ? (newLevel as 2 | 3) : undefined;
+            go({ name: 'reward', gameId: game.id, stars, correct, total, message, newStickers, levelUp }, true);
           }}
         />
       );
@@ -125,9 +130,21 @@ export default function App() {
           stars={route.stars}
           message={route.message}
           newStickers={DINOS.filter((d) => route.newStickers?.includes(d.id))}
+          levelUp={route.levelUp}
           onStickers={() => go({ name: 'stickers' }, true)}
           onAgain={() => go({ name: 'game', id: route.gameId }, true)}
           onDone={back}
+        />
+      );
+
+    case 'grownups':
+      return (
+        <GrownUpsScreen
+          onBack={back}
+          onReset={() => {
+            resetProgress();
+            setProgress(loadProgress());
+          }}
         />
       );
 

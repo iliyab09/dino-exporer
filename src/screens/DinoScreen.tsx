@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { BigButton } from '../components/BigButton';
 import { DinoArt } from '../components/DinoArt';
 import { TopBar } from '../components/TopBar';
@@ -28,6 +29,12 @@ export function DinoScreen({
   onBack: () => void;
   onOpen: (id: string) => void;
 }) {
+  const facts = [dino.funFact, dino.funFact2].filter((f): f is string => Boolean(f));
+  // Which fact is showing, and whether it was read aloud yet. Keyed by dino so
+  // prev/next (which reuse this screen) start again at the first fact.
+  const [factState, setFactState] = useState({ id: dino.id, index: 0, heard: false });
+  const { index: factIndex, heard } = factState.id === dino.id ? factState : { index: 0, heard: false };
+  const fact = facts[factIndex] ?? dino.funFact;
   const sounds = syllableSounds(dino);
   const size = sizeComparison(dino);
   const go = (d: Dino) => {
@@ -80,7 +87,9 @@ export function DinoScreen({
       </div>
 
       <div className="dino__fact">
-        <p className="dino__bubble">{dino.funFact}</p>
+        <p className="dino__bubble" aria-live="polite">
+          {fact}
+        </p>
         <BigButton
           round
           size="lg"
@@ -88,7 +97,12 @@ export function DinoScreen({
           emoji="💬"
           ariaLabel="Hear a fun fact"
           sound={false}
-          onClick={() => speak(dino.funFact)}
+          onClick={() => {
+            // First tap reads the fact on screen; later taps flip to the other fact.
+            const next = heard ? (factIndex + 1) % facts.length : factIndex;
+            setFactState({ id: dino.id, index: next, heard: true });
+            speak(facts[next]);
+          }}
         />
       </div>
 

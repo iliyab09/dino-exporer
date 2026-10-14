@@ -51,3 +51,15 @@ export function bestStars(gameId: string): number {
 export function resetProgress(): void {
   save({ ...EMPTY, best: {} });
 }
+
+export type Level = 1 | 2 | 3;
+
+/** Stars needed to reach each level (agreed with Nova: level 2 at 6, level 3 at 15). */
+export const LEVEL_STARS: Record<Level, number> = { 1: 0, 2: 6, 3: 15 };
+
+/** Learning level from lifetime stars; games use it to pick dino tiers. */
+export function levelFor(totalStars: number): Level {
+  if (totalStars >= LEVEL_STARS[3]) return 3;
+  if (totalStars >= LEVEL_STARS[2]) return 2;
+  return 1;
+}
